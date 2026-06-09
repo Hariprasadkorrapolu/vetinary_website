@@ -77,7 +77,10 @@ export function Footer() {
               </p>
               <p className="flex gap-3">
                 <Phone className="mt-1 h-4 w-4 text-cyanline" />
-                {CONTACT_DETAILS.phone}
+                <span>
+                  <span className="block">{CONTACT_DETAILS.phone}</span>
+                  <span className="block mt-1">{CONTACT_DETAILS.phoneSecondary}</span>
+                </span>
               </p>
               <p className="flex gap-3">
                 <Mail className="mt-1 h-4 w-4 text-cyanline" />

@@ -27,7 +27,16 @@ export default function ContactPage() {
               <h2 className="text-3xl font-semibold tracking-tight text-ink">Sales and support desk</h2>
               <div className="mt-8 space-y-5">
                 <Info icon={Mail} title="Email" text={CONTACT_DETAILS.email} />
-                <Info icon={Phone} title="Phone" text={CONTACT_DETAILS.phone} />
+                <Info
+                  icon={Phone}
+                  title="Phone"
+                  text={
+                    <span>
+                      <span className="block">{CONTACT_DETAILS.phone}</span>
+                      <span className="block mt-1">{CONTACT_DETAILS.phoneSecondary}</span>
+                    </span>
+                  }
+                />
                 <Info icon={MapPin} title="Address" text={CONTACT_DETAILS.address} />
               </div>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -78,7 +87,7 @@ function Info({
 }: {
   icon: typeof Mail;
   title: string;
-  text: string;
+  text: React.ReactNode;
 }) {
   return (
     <div className="flex gap-4">
@@ -87,7 +96,7 @@ function Info({
       </div>
       <div>
         <h3 className="font-semibold text-ink">{title}</h3>
-        <p className="mt-1 text-sm leading-6 text-slate-600">{text}</p>
+        <div className="mt-1 text-sm leading-6 text-slate-600">{text}</div>
       </div>
     </div>
   );

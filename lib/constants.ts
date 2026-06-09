@@ -1,9 +1,10 @@
 export const WHATSAPP_URL =
-  "https://api.whatsapp.com/send?phone=919246188013&text=Hello%20Stanmax%20Laboratories%2C%20I%20would%20like%20to%20know%20more%20about%20your%20veterinary%20product%20solutions.";
+  "https://wa.me/919505824365?text=Hello%20STANMAX%20Team%2C%0AI%20would%20like%20to%20know%20more%20about%20your%20veterinary%20healthcare%20products.";
 
 export const CONTACT_DETAILS = {
   address: "2-24-86/3/1, Lakshminarayananagar Colony, IDA Uppal, Hyderabad, Telangana - 500 03",
-  phone: "+91 92461 88013",
+  phone: "+91 95058 24365 (Primary)",
+  phoneSecondary: "+91 97031 74365 (Secondary)",
   email: "contact@stanmaxlabs.com",
   mapQuery:
     "2-24-86/3/1, Lakshminarayananagar Colony, IDA Uppal, Hyderabad, Telangana - 500 03"
