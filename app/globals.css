@@ -2,24 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #132337;
-  --slate-blue: #2f4f6f;
-}
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #000000;
+    --slate-blue: #2F3E6F;
+    --brand-blue: #2F3E6F;
+    --brand-yellow: #E8BE56;
+    --brand-pink: #ED6E80;
+  }
 
-* {
-  box-sizing: border-box;
-}
+  * {
+    box-sizing: border-box;
+  }
 
-html {
-  scroll-behavior: smooth;
-}
+  html {
+    scroll-behavior: smooth;
+  }
 
-body {
-  margin: 0;
-  background: var(--background);
-  color: var(--foreground);
+  body {
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-poppins), sans-serif;
+    font-weight: 400;
+  }
+
+  /* Typography System */
+  h1, h2, h3 {
+    font-family: 'Sitka', 'Sitka Text', 'Sitka Heading', serif !important;
+    font-weight: 700 !important;
+  }
+
+  /* Responsive Typography using clamp() */
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem) !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem) !important;
+    line-height: 1.3 !important;
+  }
+
+  h4, h5, h6, .subheading {
+    font-family: var(--font-poppins), sans-serif !important;
+    font-weight: 600 !important;
+    font-size: clamp(1.125rem, 2vw, 1.25rem) !important;
+  }
+
+  p, span, a, input, textarea {
+    font-family: var(--font-poppins), sans-serif;
+  }
+
+  button, .btn, .nav-item {
+    font-family: var(--font-poppins), sans-serif !important;
+    font-weight: 600 !important;
+  }
 }
 
 ::selection {

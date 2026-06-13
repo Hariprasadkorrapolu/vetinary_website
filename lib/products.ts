@@ -37,16 +37,18 @@ export const products: Product[] = [
     description:
       "WELMAX PLUS is a broad-spectrum antiparasitic suspension effective against flukes, gastrointestinal nematodes, and lungworms in cattle, sheep, and goats.",
     dosage: "1 ml per 4 kg body weight",
-    usage: "Used for liver flukes, rumen flukes, GI nematodes, lungworms, and mixed infestations.",
+    usage:
+      "Used for liver flukes, rumen flukes, GI nematodes, lungworms, and mixed infestations.",
     benefits: [
       "Improves animal health",
       "Improves performance",
       "Restores reproductive performance",
       "Hepato protective",
-      "Reduces clinical toxemia"
+      "Reduces clinical toxemia",
     ],
     packaging: "500 ml, 1 Ltr",
-    composition: "Oxyclozanide 6% W/v + Levamisole HCl 3% W/v + Silymarin 0.4% W/v"
+    composition:
+      "Oxyclozanide 6% W/v + Levamisole HCl 3% W/v + Silymarin 0.4% W/v",
   },
   {
     id: 2,
@@ -58,12 +60,18 @@ export const products: Product[] = [
     popularity: 90,
     isLatest: false,
     shortUsage: "Flukicide suspension",
-    description: "TRISOLE is a triclabendazole-based flukicide effective against immature and adult liver flukes.",
+    description:
+      "TRISOLE is a triclabendazole-based flukicide effective against immature and adult liver flukes.",
     dosage: "1 ml per 5 kg body weight",
     usage: "Used for fasciolosis and liver fluke infections.",
-    benefits: ["Better weight gain", "Improves productivity", "Improves liver function", "Improves feed conversion"],
+    benefits: [
+      "Better weight gain",
+      "Improves productivity",
+      "Improves liver function",
+      "Improves feed conversion",
+    ],
     packaging: "500 ml, 1 Ltr",
-    composition: "Triclabendazole 5% W/v"
+    composition: "Triclabendazole 5% W/v",
   },
   {
     id: 3,
@@ -75,12 +83,13 @@ export const products: Product[] = [
     popularity: 80,
     isLatest: false,
     shortUsage: "Deworming solution",
-    description: "STANPIPERZ 45 is a veterinary deworming formulation used against internal parasites.",
+    description:
+      "STANPIPERZ 45 is a veterinary deworming formulation used against internal parasites.",
     dosage: "As directed by veterinarian",
     usage: "Used for treatment and control of internal parasites.",
     benefits: ["Controls parasitic infestations", "Improves animal health"],
     packaging: "As per PPT",
-    composition: "Piperazine based formulation"
+    composition: "Piperazine based formulation",
   },
   {
     id: 4,
@@ -92,12 +101,18 @@ export const products: Product[] = [
     popularity: 92,
     isLatest: false,
     shortUsage: "Water soluble dewormer",
-    description: "STANMISOLE is a levamisole soluble powder used for treatment of internal parasites.",
+    description:
+      "STANMISOLE is a levamisole soluble powder used for treatment of internal parasites.",
     dosage: "1 gm per 25-40 kg body weight",
     usage: "Used against nematodes, haemonchus, and trichostrongylus.",
-    benefits: ["Broad-spectrum dewormer", "Improves immunity", "Improves body weight", "Easy to administer"],
+    benefits: [
+      "Broad-spectrum dewormer",
+      "Improves immunity",
+      "Improves body weight",
+      "Easy to administer",
+    ],
     packaging: "100 gms, 500 gms, 1 kg",
-    composition: "Levamisole 30% W/w Soluble Powder"
+    composition: "Levamisole 30% W/w Soluble Powder",
   },
   {
     id: 5,
@@ -109,17 +124,18 @@ export const products: Product[] = [
     popularity: 96,
     isLatest: true,
     shortUsage: "Broad spectrum antiparasitic solution",
-    description: "STANMECTIN is an ivermectin oral solution effective against internal and external parasites.",
+    description:
+      "STANMECTIN is an ivermectin oral solution effective against internal and external parasites.",
     dosage: "1 ml per 4 kg body weight",
     usage: "Used against roundworms, lungworms, lice, and mange mites.",
     benefits: [
       "Broad-spectrum dewormer",
       "Improves productivity",
       "Controls endo & ecto parasites",
-      "Relieves skin irritation"
+      "Relieves skin irritation",
     ],
     packaging: "100 ml, 500 ml, 1 Ltr",
-    composition: "Ivermectin I.P. 0.8 mg"
+    composition: "Ivermectin I.P. 0.8 mg",
   },
   {
     id: 6,
@@ -131,12 +147,19 @@ export const products: Product[] = [
     popularity: 94,
     isLatest: false,
     shortUsage: "Flukicide and dewormer",
-    description: "RAFOSOLE is a rafoxanide and levamisole oral drench for liver flukes and GI parasites.",
+    description:
+      "RAFOSOLE is a rafoxanide and levamisole oral drench for liver flukes and GI parasites.",
     dosage: "1 ml per 2 kg body weight",
-    usage: "Used against liver flukes, trematodes, GI nematodes, and lungworms.",
-    benefits: ["Improves weight gain", "Improves feed conversion", "Improves milk production", "Safe in pregnant animals"],
+    usage:
+      "Used against liver flukes, trematodes, GI nematodes, and lungworms.",
+    benefits: [
+      "Improves weight gain",
+      "Improves feed conversion",
+      "Improves milk production",
+      "Safe in pregnant animals",
+    ],
     packaging: "250 ml, 500 ml, 1 Ltr",
-    composition: "Rafoxanide I.P. 15 mg + Levamisole HCl I.P. 15 mg"
+    composition: "Rafoxanide I.P. 15 mg + Levamisole HCl I.P. 15 mg",
   },
   {
     id: 7,
@@ -148,12 +171,17 @@ export const products: Product[] = [
     popularity: 91,
     isLatest: false,
     shortUsage: "Double strength dewormer",
-    description: "RAFOSOLE-DS is a double-strength antiparasitic oral drench for flukes and worms.",
+    description:
+      "RAFOSOLE-DS is a double-strength antiparasitic oral drench for flukes and worms.",
     dosage: "1 ml per 4 kg body weight",
     usage: "Used against liver flukes, GI nematodes, and lungworms.",
-    benefits: ["Improves milk production", "Improves feed conversion", "Safe in pregnant animals"],
+    benefits: [
+      "Improves milk production",
+      "Improves feed conversion",
+      "Safe in pregnant animals",
+    ],
     packaging: "100 ml, 250 ml",
-    composition: "Rafoxanide I.P. 30 mg + Levamisole HCl I.P. 30 mg"
+    composition: "Rafoxanide I.P. 30 mg + Levamisole HCl I.P. 30 mg",
   },
   {
     id: 8,
@@ -165,12 +193,17 @@ export const products: Product[] = [
     popularity: 90,
     isLatest: true,
     shortUsage: "Advanced antiparasitic oral drench",
-    description: "RAFOSOLE-I combines rafoxanide and ivermectin for broad parasite control.",
+    description:
+      "RAFOSOLE-I combines rafoxanide and ivermectin for broad parasite control.",
     dosage: "1 ml per 4 kg body weight",
     usage: "Used against flukes, GI nematodes, lungworms, mites, and flies.",
-    benefits: ["Improves milk production", "Improves reproductive performance", "Improves feed conversion"],
+    benefits: [
+      "Improves milk production",
+      "Improves reproductive performance",
+      "Improves feed conversion",
+    ],
     packaging: "100 ml, 250 ml, 500 ml, 1 Ltr",
-    composition: "Rafoxanide I.P. 30 mg + Ivermectin I.P. 1 mg"
+    composition: "Rafoxanide I.P. 30 mg + Ivermectin I.P. 1 mg",
   },
   {
     id: 9,
@@ -182,12 +215,18 @@ export const products: Product[] = [
     popularity: 97,
     isLatest: true,
     shortUsage: "Premium broad spectrum antiparasitic",
-    description: "RAFOSOLE-I PLUS is an advanced antiparasitic oral drench for internal and external parasites.",
+    description:
+      "RAFOSOLE-I PLUS is an advanced antiparasitic oral drench for internal and external parasites.",
     dosage: "1 ml per 5 kg body weight",
     usage: "Used against liver flukes, GI nematodes, mites, and flies.",
-    benefits: ["Improves fertility", "Improves body weight", "Improves milk production", "Safe in lactating animals"],
+    benefits: [
+      "Improves fertility",
+      "Improves body weight",
+      "Improves milk production",
+      "Safe in lactating animals",
+    ],
     packaging: "100 ml, 250 ml, 500 ml, 1 Ltr",
-    composition: "Rafoxanide 3.5% W/v + Ivermectin 0.2% W/v"
+    composition: "Rafoxanide 3.5% W/v + Ivermectin 0.2% W/v",
   },
   {
     id: 10,
@@ -199,12 +238,17 @@ export const products: Product[] = [
     popularity: 88,
     isLatest: false,
     shortUsage: "Flukicide and tapeworm treatment",
-    description: "OXYSOLE-N is an oral suspension effective against liver flukes and tapeworms.",
+    description:
+      "OXYSOLE-N is an oral suspension effective against liver flukes and tapeworms.",
     dosage: "1 ml per 15 kg body weight",
     usage: "Used against liver flukes, tapeworms, and amphistomes.",
-    benefits: ["Improves appetite", "Improves milk production", "Improves body weight"],
+    benefits: [
+      "Improves appetite",
+      "Improves milk production",
+      "Improves body weight",
+    ],
     packaging: "100 ml, 250 ml, 500 ml, 1 Ltr",
-    composition: "Niclosamide 12% W/v + Oxyclozanide 3% W/v"
+    composition: "Niclosamide 12% W/v + Oxyclozanide 3% W/v",
   },
   {
     id: 11,
@@ -216,12 +260,17 @@ export const products: Product[] = [
     popularity: 89,
     isLatest: true,
     shortUsage: "Broad spectrum cestocidal dewormer",
-    description: "NICLOMAX PLUS is a broad-spectrum antiparasitic formulation for poultry and livestock.",
+    description:
+      "NICLOMAX PLUS is a broad-spectrum antiparasitic formulation for poultry and livestock.",
     dosage: "1 ml per 1.5 kg body weight",
     usage: "Used against intestinal tapeworms, cestodes, and GI nematodes.",
-    benefits: ["Improves body weight gain", "Improves milk production", "Reduces mortality"],
+    benefits: [
+      "Improves body weight gain",
+      "Improves milk production",
+      "Reduces mortality",
+    ],
     packaging: "100 ml, 250 ml, 500 ml, 1 Ltr",
-    composition: "Niclosamide I.P. 500 mg + Albendazole I.P. 150 mg"
+    composition: "Niclosamide I.P. 500 mg + Albendazole I.P. 150 mg",
   },
   {
     id: 12,
@@ -237,13 +286,20 @@ export const products: Product[] = [
       "CLOZOMAX is a closantel oral solution effective against liver flukes and blood sucking parasites.",
     dosage: "1 ml per 15 kg body weight",
     usage: "Used against fascioliasis and blood feeding parasites.",
-    benefits: ["Improves appetite", "Improves body weight", "Improves milk yield", "Reduces anaemia"],
+    benefits: [
+      "Improves appetite",
+      "Improves body weight",
+      "Improves milk yield",
+      "Reduces anaemia",
+    ],
     packaging: "30 ml, 100 ml, 250 ml, 500 ml",
-    composition: "Closantel 15% W/v Oral Solution"
-  }
+    composition: "Closantel 15% W/v Oral Solution",
+  },
 ];
 
-export const featuredProducts = products.filter((product) => product.isLatest).slice(0, 5);
+export const featuredProducts = products
+  .filter((product) => product.isLatest)
+  .slice(0, 5);
 
 export function getProductBySlug(slug: string) {
   return products.find((product) => product.slug === slug);

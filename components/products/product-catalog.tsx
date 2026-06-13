@@ -7,33 +7,42 @@ import { Product, products } from "@/lib/products";
 import { ProductCard } from "@/components/products/product-card";
 import { QuickViewModal } from "@/components/products/quick-view-modal";
 
-type SortOption =
-  | "Most Popular"
-  | "Latest"
-  | "Featured"
-  | "A-Z"
-  | "Z-A";
+type SortOption = "Most Popular" | "Latest" | "Featured" | "A-Z" | "Z-A";
 
 const sortOptions: SortOption[] = [
   "Most Popular",
   "Latest",
   "Featured",
   "A-Z",
-  "Z-A"
+  "Z-A",
 ];
 
-export function ProductCatalog({ initialCategory }: { initialCategory?: string }) {
+export function ProductCatalog({
+  initialCategory,
+}: {
+  initialCategory?: string;
+}) {
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory ?? "All");
+  const [selectedCategory, setSelectedCategory] = useState(
+    initialCategory ?? "All",
+  );
   const [selectedType, setSelectedType] = useState("All");
   const [sort, setSort] = useState<SortOption>("Most Popular");
   const [quickView, setQuickView] = useState<Product | null>(null);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   const filtered = useMemo(() => {
     const result = products
-      .filter((product) => product.name.toLowerCase().includes(search.toLowerCase()))
-      .filter((product) => selectedCategory === "All" || product.category === selectedCategory)
-      .filter((product) => selectedType === "All" || product.type === selectedType);
+      .filter((product) =>
+        product.name.toLowerCase().includes(search.toLowerCase()),
+      )
+      .filter(
+        (product) =>
+          selectedCategory === "All" || product.category === selectedCategory,
+      )
+      .filter(
+        (product) => selectedType === "All" || product.type === selectedType,
+      );
 
     return result.sort((a, b) => {
       if (sort === "Latest") {
@@ -62,13 +71,28 @@ export function ProductCatalog({ initialCategory }: { initialCategory?: string }
 
   return (
     <>
-      <section className="bg-mist py-14">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 sm:px-6 lg:grid-cols-[20rem_1fr] lg:px-8">
+      <section className="bg-mist py-8 sm:py-14">
+        <div className="mx-auto grid max-w-7xl gap-6 px-5 sm:px-6 lg:grid-cols-[20rem_1fr] lg:px-8">
           <aside className="lg:sticky lg:top-28 lg:self-start">
-            <div className="rounded-[1.75rem] bg-white p-5 shadow-soft">
+            {/* Mobile Filter Toggle Button */}
+            <button
+              type="button"
+              onClick={() => setIsFiltersOpen(!isFiltersOpen)}
+              className="flex w-full items-center justify-between rounded-2xl border border-medical bg-white px-5 py-4 text-sm font-semibold text-slateblue shadow-soft lg:hidden mb-4"
+            >
+              <span className="flex items-center gap-2">
+                <SlidersHorizontal className="h-4 w-4" />
+                {isFiltersOpen ? "Hide Filters" : "Show Filters"}
+              </span>
+              <span className="text-xs text-slate-500 font-normal">
+                {filtered.length} products found
+              </span>
+            </button>
+
+            <div className={`rounded-[1.75rem] border border-medical bg-white p-5 shadow-soft ${isFiltersOpen ? "block" : "hidden lg:block"}`}>
               <div className="mb-5 flex items-center gap-2">
                 <SlidersHorizontal className="h-5 w-5 text-slateblue" />
-                <h2 className="text-lg font-semibold text-ink">Filters</h2>
+                <h2 className="text-lg text-ink">Filters</h2>
               </div>
 
               <label className="relative block">
@@ -108,8 +132,10 @@ export function ProductCatalog({ initialCategory }: { initialCategory?: string }
               <FilterGroup title="Sort By">
                 <select
                   value={sort}
-                  onChange={(event) => setSort(event.target.value as SortOption)}
-                  className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm font-semibold text-ink outline-none focus:border-slateblue"
+                  onChange={(event) =>
+                    setSort(event.target.value as SortOption)
+                  }
+                  className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-ink outline-none focus:border-slateblue"
                 >
                   {sortOptions.map((option) => (
                     <option key={option}>{option}</option>
@@ -120,13 +146,13 @@ export function ProductCatalog({ initialCategory }: { initialCategory?: string }
           </aside>
 
           <div>
-            <div className="mb-6 flex flex-col justify-between gap-4 rounded-[1.5rem] bg-white p-5 shadow-soft sm:flex-row sm:items-center">
+            <div className="mb-6 flex flex-col justify-between gap-4 rounded-[1.5rem] border border-medical bg-white p-5 shadow-soft sm:flex-row sm:items-center">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-slateblue/70">
+                <p className="text-sm uppercase tracking-[0.18em] text-slateblue/70">
                   Product Catalog
                 </p>
 
-                <h2 className="mt-1 text-2xl font-semibold tracking-tight text-ink">
+                <h2 className="mt-1 text-2xl tracking-tight text-ink">
                   {filtered.length} products found
                 </h2>
               </div>
@@ -149,28 +175,23 @@ export function ProductCatalog({ initialCategory }: { initialCategory?: string }
         </div>
       </section>
 
-      <QuickViewModal
-        product={quickView}
-        onClose={() => setQuickView(null)}
-      />
+      <QuickViewModal product={quickView} onClose={() => setQuickView(null)} />
     </>
   );
 }
 
 function FilterGroup({
   title,
-  children
+  children,
 }: {
   title: string;
   children: React.ReactNode;
 }) {
   return (
     <div className="mt-7 border-t border-slate-100 pt-5">
-      <h3 className="mb-3 text-sm font-bold text-ink">{title}</h3>
+      <h3 className="mb-3 text-sm text-ink">{title}</h3>
 
-      <div className="flex flex-wrap gap-2">
-        {children}
-      </div>
+      <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
 }
@@ -178,7 +199,7 @@ function FilterGroup({
 function FilterButton({
   active,
   onClick,
-  children
+  children,
 }: {
   active: boolean;
   onClick: () => void;
@@ -188,7 +209,7 @@ function FilterButton({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-3 py-2 text-xs font-bold transition ${
+      className={`rounded-full px-4 py-2.5 text-xs font-semibold transition ${
         active
           ? "bg-slateblue text-white"
           : "bg-slate-50 text-slate-600 hover:bg-medical hover:text-slateblue"

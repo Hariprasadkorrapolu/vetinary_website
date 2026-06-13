@@ -9,7 +9,7 @@ import { useEnquiry } from "@/components/modals/enquiry-provider";
 
 export function QuickViewModal({
   product,
-  onClose
+  onClose,
 }: {
   product: Product | null;
   onClose: () => void;
@@ -29,7 +29,7 @@ export function QuickViewModal({
             initial={{ y: 24, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 18, opacity: 0, scale: 0.98 }}
-            className="relative grid w-full max-w-4xl overflow-hidden rounded-[2rem] bg-white shadow-premium md:grid-cols-2"
+            className="relative grid w-full max-w-4xl overflow-hidden rounded-[2rem] border border-medical bg-white shadow-premium md:grid-cols-2"
           >
             <button
               type="button"
@@ -39,20 +39,36 @@ export function QuickViewModal({
             >
               <X className="h-5 w-5" />
             </button>
-            <div className="relative min-h-72 bg-medical">
-              <Image src={product.image} alt={product.name} fill className="object-cover" sizes="50vw" />
+            <div className="relative min-h-[350px] bg-transparent border-b md:border-b-0 md:border-r border-medical/50 p-8 flex items-center justify-center">
+              <div className="relative w-full h-full min-h-[250px]">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
             </div>
             <div className="p-7 sm:p-9">
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-slateblue/70">{product.category}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink">{product.name}</h2>
+              <p className="text-sm uppercase tracking-[0.18em] text-slateblue/70">
+                {product.category}
+              </p>
+              <h2 className="mt-3 text-3xl tracking-tight text-ink">
+                {product.name}
+              </h2>
               {product.price ? (
-                <p className="mt-3 text-2xl font-semibold text-slateblue">
+                <p className="mt-3 text-2xl text-slateblue">
                   Rs. {product.price.toLocaleString("en-IN")}
                 </p>
               ) : null}
-              <p className="mt-5 text-sm leading-7 text-slate-600">{product.description}</p>
+              <p className="mt-5 text-sm leading-7 text-slate-600">
+                {product.description}
+              </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Button onClick={() => openEnquiry(product.name)}>Contact Enquiry</Button>
+                <Button onClick={() => openEnquiry(product.name)}>
+                  Contact Enquiry
+                </Button>
                 <Button href={`/products/${product.slug}`} variant="ghost">
                   View Details
                 </Button>

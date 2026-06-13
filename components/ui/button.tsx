@@ -7,18 +7,22 @@ type ButtonProps = {
   children: React.ReactNode;
   href?: string;
   onClick?: () => void;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "accent" | "ghost" | "white";
   className?: string;
   type?: "button" | "submit";
 };
 
 const styles = {
   primary:
-    "bg-slateblue text-white shadow-soft hover:-translate-y-0.5 hover:bg-[#263f59] hover:shadow-premium",
+    "bg-brand-blue text-white shadow-soft hover:-translate-y-0.5 hover:bg-[#202c52] hover:shadow-premium",
   secondary:
-    "border border-white/70 bg-white text-slateblue shadow-soft hover:-translate-y-0.5 hover:bg-medical",
+    "bg-brand-yellow text-brand-blue shadow-soft hover:-translate-y-0.5 hover:bg-[#d6aa3c] hover:shadow-premium",
+  accent:
+    "bg-brand-pink text-white shadow-soft hover:-translate-y-0.5 hover:bg-[#db5467] hover:shadow-premium",
   ghost:
-    "border border-slate-200 bg-white text-slateblue hover:-translate-y-0.5 hover:border-slateblue/30 hover:shadow-soft"
+    "border border-slate-200 bg-white text-brand-blue hover:-translate-y-0.5 hover:border-brand-blue/30 hover:shadow-soft",
+  white:
+    "border border-white/70 bg-white text-brand-blue shadow-soft hover:-translate-y-0.5 hover:bg-medical",
 };
 
 export function Button({
@@ -27,9 +31,9 @@ export function Button({
   onClick,
   variant = "primary",
   className = "",
-  type = "button"
+  type = "button",
 }: ButtonProps) {
-  const classes = `inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-all duration-300 ${styles[variant]} ${className}`;
+  const classes = `inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm transition-all duration-300 ${styles[variant]} ${className}`;
 
   if (href) {
     return (

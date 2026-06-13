@@ -6,7 +6,7 @@ export const newsItems = [
     image:
       "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80",
     excerpt:
-      "Stanmax hosted a field-focused knowledge program on seasonal flock health and preventive farm routines."
+      "Stanmax hosted a field-focused knowledge program on seasonal flock health and preventive farm routines.",
   },
   {
     title: "New Aqua Nutrition Portfolio Announced",
@@ -15,7 +15,7 @@ export const newsItems = [
     image:
       "https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=1200&q=80",
     excerpt:
-      "A science-backed aqua range designed for managed farm productivity and growth-stage support."
+      "A science-backed aqua range designed for managed farm productivity and growth-stage support.",
   },
   {
     title: "Clinical Collaboration With Veterinary Partners",
@@ -24,7 +24,7 @@ export const newsItems = [
     image:
       "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80",
     excerpt:
-      "The company expanded its advisory network to bring stronger technical support to distribution partners."
+      "The company expanded its advisory network to bring stronger technical support to distribution partners.",
   },
   {
     title: "Dairy Herd Nutrition Conference Highlights",
@@ -33,6 +33,6 @@ export const newsItems = [
     image:
       "https://images.unsplash.com/photo-1596733430284-f7437764b1a9?auto=format&fit=crop&w=1200&q=80",
     excerpt:
-      "Key trends in transition nutrition, mineral balance, and herd performance were discussed with field teams."
-  }
+      "Key trends in transition nutrition, mineral balance, and herd performance were discussed with field teams.",
+  },
 ];

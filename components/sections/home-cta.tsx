@@ -19,28 +19,31 @@ export function HomeCta() {
         className="object-cover opacity-20"
         sizes="100vw"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink via-slateblue/90 to-slateblue/80" />
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-blue via-brand-blue/92 to-brand-pink/35" />
       <Container className="relative">
         <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_auto]">
           <div>
-            <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-cyanline">Partner with Stanmax</p>
-            <h2 className="max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl">
+            <p className="mb-4 text-sm uppercase tracking-[0.2em] text-cyanline">
+              Partner with Stanmax
+            </p>
+            <h2 className="max-w-3xl text-3xl tracking-tight sm:text-5xl">
               Looking for Veterinary Product Solutions?
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-white/72">
-              Connect with our sales and technical team for product recommendations, distribution
-              discussions, and category-level portfolio support.
+              Connect with our sales and technical team for product
+              recommendations, distribution discussions, and category-level
+              portfolio support.
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button variant="secondary" onClick={() => openEnquiry()}>
+          <div className="flex flex-col gap-3 sm:flex-row w-full sm:w-auto">
+            <Button variant="secondary" onClick={() => openEnquiry()} className="w-full sm:w-auto">
               Contact Enquiry
             </Button>
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/18"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 py-3 text-sm text-white transition hover:bg-white/18 w-full sm:w-auto"
             >
               <MessageCircle className="h-4 w-4" />
               WhatsApp
