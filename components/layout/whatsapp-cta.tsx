@@ -62,6 +62,7 @@ export function WhatsAppCTA() {
 
   // Periodic pulse animation every 15 seconds
   useEffect(() => {
+    if (isMobile) return;
     const pulseInterval = setInterval(() => {
       setIsPulsing(true);
       const timer = setTimeout(() => setIsPulsing(false), 1500);
@@ -69,7 +70,7 @@ export function WhatsAppCTA() {
     }, 15000);
 
     return () => clearInterval(pulseInterval);
-  }, []);
+  }, [isMobile]);
 
   // Footer collision detection
   useEffect(() => {
@@ -106,11 +107,16 @@ export function WhatsAppCTA() {
     <>
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes wa-float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-6px); }
+          0%, 100% { transform: translate3d(0, 0px, 0); }
+          50% { transform: translate3d(0, -6px, 0); }
         }
         .wa-float-active {
           animation: wa-float 4.5s ease-in-out infinite;
+        }
+        @media (max-width: 767px) {
+          .wa-float-active {
+            animation: none;
+          }
         }
       `}} />
 
@@ -130,12 +136,12 @@ export function WhatsAppCTA() {
             onClick={() => setShowBubble(false)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="flex h-14 items-center bg-[#25D366]/95 backdrop-blur-md border border-white/15 rounded-full shadow-[0_16px_48px_rgba(37,211,102,0.24)] hover:shadow-[0_24px_60px_rgba(37,211,102,0.35)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden cursor-pointer select-none"
+            className="flex h-14 items-center bg-[#25D366] md:bg-[#25D366]/95 md:backdrop-blur-md border border-white/15 rounded-full shadow-[0_16px_48px_rgba(37,211,102,0.24)] hover:shadow-[0_24px_60px_rgba(37,211,102,0.35)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden cursor-pointer select-none"
             initial={{ x: -100, opacity: 0 }}
             animate={{
               x: 0,
               opacity: 1,
-              scale: isPulsing ? [1, 1.04, 1] : 1,
+              scale: (isMobile || !isPulsing) ? 1 : [1, 1.04, 1],
               width: isMobile ? 120 : (isHovered ? 250 : 56),
             }}
             transition={{
@@ -202,7 +208,7 @@ export function WhatsAppCTA() {
               animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 10 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="w-[300px] bg-white/95 backdrop-blur-md border border-slate-200/60 p-5 rounded-3xl shadow-[0_12px_40px_rgba(47,62,111,0.12)] flex flex-col gap-3 text-left relative"
+              className="w-[300px] bg-white border border-slate-200/60 p-5 rounded-3xl shadow-[0_12px_40px_rgba(47,62,111,0.12)] md:bg-white/95 md:backdrop-blur-md flex flex-col gap-3 text-left relative"
             >
               {/* Close Button */}
               <button

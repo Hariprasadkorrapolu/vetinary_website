@@ -31,8 +31,8 @@ export function Navbar() {
     <header
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/95 shadow-soft backdrop-blur-xl"
-          : "bg-white/90 backdrop-blur-md"
+          ? "bg-white/98 md:bg-white/95 shadow-soft md:backdrop-blur-xl"
+          : "bg-white/95 md:bg-white/90 md:backdrop-blur-md"
       }`}
     >
       <Container>

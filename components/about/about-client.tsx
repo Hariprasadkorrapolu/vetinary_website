@@ -47,6 +47,10 @@ function Counter({
 
   useEffect(() => {
     if (isInView) {
+      if (window.innerWidth < 768) {
+        setCount(value);
+        return;
+      }
       let start = 0;
       const end = value;
       if (start === end) return;
@@ -69,6 +73,14 @@ function Counter({
 
 export function AboutClient() {
   const { openEnquiry } = useEnquiry();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Timeline State - auto-traverses every 3 seconds
   const [activeTimeline, setActiveTimeline] = useState(0);
@@ -122,11 +134,12 @@ export function AboutClient() {
   // Auto-playing loop every 3 seconds (pauses when hovered)
   useEffect(() => {
     if (isHovered) return;
+    if (isMobile) return;
     const interval = setInterval(() => {
       setActiveTimeline((prev) => (prev + 1) % timelineEvents.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [isHovered]);
+  }, [isHovered, isMobile]);
 
   // Manufacturing infographic steps
   const manufacturingSteps = [
@@ -174,8 +187,8 @@ export function AboutClient() {
       <section className="relative min-h-[90vh] overflow-hidden bg-gradient-to-br from-ink via-[#0d1c2e] to-[#1e344f] pt-36 text-white flex flex-col justify-center">
         {/* Abstract Background Design with Parallax Zoom */}
         <motion.div
-          animate={{ scale: [1.02, 1.07, 1.02] }}
-          transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+          animate={isMobile ? { scale: 1.02 } : { scale: [1.02, 1.07, 1.02] }}
+          transition={isMobile ? { duration: 0.1 } : { duration: 24, repeat: Infinity, ease: "linear" }}
           className="absolute inset-0 z-0 opacity-25"
         >
           <Image
@@ -400,7 +413,7 @@ export function AboutClient() {
                           {/* Year Circle Node */}
                           <motion.div
                             animate={
-                              isActive ? { scale: [1, 1.15, 1] } : { scale: 1 }
+                              (isActive && !isMobile) ? { scale: [1, 1.15, 1] } : { scale: 1 }
                             }
                             transition={{
                               duration: 3,
@@ -416,7 +429,7 @@ export function AboutClient() {
                             <span>{event.year}</span>
 
                             {/* Glowing Active Particle ring (Spark) */}
-                            {isActive && (
+                            {isActive && !isMobile && (
                               <span className="absolute -inset-2 rounded-full border border-brand-yellow/30 animate-ping" />
                             )}
                           </motion.div>
@@ -458,7 +471,7 @@ export function AboutClient() {
                           }`}
                         >
                           {event.year}
-                          {isActive && (
+                          {isActive && !isMobile && (
                             <span className="absolute -inset-1.5 rounded-full border border-brand-yellow/30 animate-ping" />
                           )}
                         </div>
@@ -788,33 +801,35 @@ export function AboutClient() {
       -------------------------------------------------- */}
       <section className="bg-mist py-24 relative overflow-hidden">
         {/* Animated Background Molecular Particles */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-5">
-          <motion.div
-            animate={{ y: [0, -20, 0], x: [0, 15, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-20 left-12 w-8 h-8 rounded-full border-2 border-brand-blue"
-          />
-          <motion.div
-            animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
-            transition={{
-              duration: 9,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-            className="absolute top-48 right-24 w-12 h-12 rounded-full border-2 border-brand-pink"
-          />
-          <motion.div
-            animate={{ y: [0, -15, 0], x: [0, -10, 0] }}
-            transition={{
-              duration: 7,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2,
-            }}
-            className="absolute bottom-32 left-1/3 w-6 h-6 rounded-full border border-brand-yellow"
-          />
-        </div>
+        {!isMobile && (
+          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-5">
+            <motion.div
+              animate={{ y: [0, -20, 0], x: [0, 15, 0] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-20 left-12 w-8 h-8 rounded-full border-2 border-brand-blue"
+            />
+            <motion.div
+              animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
+              transition={{
+                duration: 9,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1,
+              }}
+              className="absolute top-48 right-24 w-12 h-12 rounded-full border-2 border-brand-pink"
+            />
+            <motion.div
+              animate={{ y: [0, -15, 0], x: [0, -10, 0] }}
+              transition={{
+                duration: 7,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2,
+              }}
+              className="absolute bottom-32 left-1/3 w-6 h-6 rounded-full border border-brand-yellow"
+            />
+          </div>
+        )}
 
         <Container className="relative z-10">
           {/* Header */}
@@ -869,8 +884,8 @@ export function AboutClient() {
               ].map((card, idx) => (
                 <motion.div
                   key={card.title}
-                  animate={{ y: card.floatRange }}
-                  transition={{
+                  animate={isMobile ? { y: 0 } : { y: card.floatRange }}
+                  transition={isMobile ? {} : {
                     repeat: Infinity,
                     duration: card.duration,
                     ease: "easeInOut",
@@ -1051,8 +1066,8 @@ export function AboutClient() {
             <div className="grid gap-6 sm:grid-cols-2">
               {/* Card 1: Essential Amino Acids */}
               <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{
+                animate={isMobile ? { y: 0 } : { y: [0, -10, 0] }}
+                transition={isMobile ? {} : {
                   repeat: Infinity,
                   duration: 4.8,
                   ease: "easeInOut",
@@ -1091,8 +1106,8 @@ export function AboutClient() {
 
               {/* Card 2: Antibiotic Premixes */}
               <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{
+                animate={isMobile ? { y: 0 } : { y: [0, 10, 0] }}
+                transition={isMobile ? {} : {
                   repeat: Infinity,
                   duration: 5.6,
                   ease: "easeInOut",

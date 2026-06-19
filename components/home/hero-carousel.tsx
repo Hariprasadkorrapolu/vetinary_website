@@ -36,7 +36,15 @@ const slides = [
 
 export function HeroCarousel() {
   const [index, setIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const { openEnquiry } = useEnquiry();
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const interval = window.setInterval(
@@ -58,12 +66,14 @@ export function HeroCarousel() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8 }}
+          style={{ willChange: "opacity" }}
         >
           <motion.div
             className="absolute inset-0"
             initial={{ scale: 1 }}
-            animate={{ scale: 1.08 }}
+            animate={{ scale: isMobile ? 1 : 1.08 }}
             transition={{ duration: 7, ease: "linear" }}
+            style={{ willChange: isMobile ? "auto" : "transform" }}
           >
             <Image
               src={active.image}

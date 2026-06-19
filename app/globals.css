@@ -73,9 +73,15 @@
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.58);
-  backdrop-filter: blur(22px);
+}
+
+@media (min-width: 768px) {
+  .glass {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(22px);
+  }
 }
 
 .section-pad {

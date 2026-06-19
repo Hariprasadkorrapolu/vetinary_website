@@ -94,7 +94,7 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
       <AnimatePresence>
         {open ? (
           <motion.div
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/55 px-4 py-8 backdrop-blur-sm"
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/75 md:bg-ink/55 px-4 py-8 md:backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -104,6 +104,7 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 18, opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.25 }}
+              style={{ willChange: "transform, opacity" }}
               className="glass relative w-full max-w-2xl rounded-[2rem] border border-medical/50 p-6 shadow-premium sm:p-8 max-h-[90vh] overflow-y-auto no-scrollbar"
             >
               <button

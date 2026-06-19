@@ -8,7 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { Award, BriefcaseMedical, Handshake, ShieldCheck } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/container";
 
 const stats = [
@@ -44,6 +44,7 @@ function StatCard({
   icon: typeof Award;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const motionValue = useMotionValue(0);
   const spring = useSpring(motionValue, { duration: 1800, bounce: 0 });
@@ -53,8 +54,12 @@ function StatCard({
   );
 
   useEffect(() => {
-    if (inView) motionValue.set(value);
-  }, [inView, motionValue, value]);
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
+  useEffect(() => {
+    if (inView && !isMobile) motionValue.set(value);
+  }, [inView, motionValue, value, isMobile]);
 
   return (
     <motion.div
@@ -68,7 +73,7 @@ function StatCard({
         <Icon className="h-5 w-5" />
       </div>
       <motion.p className="mt-4 sm:mt-7 text-2xl sm:text-4xl tracking-tight text-ink">
-        {rounded}
+        {isMobile ? `${value}${suffix}` : rounded}
       </motion.p>
       <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-slate-500">{label}</p>
     </motion.div>

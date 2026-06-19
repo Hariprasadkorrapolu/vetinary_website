@@ -20,7 +20,7 @@ export function QuickViewModal({
     <AnimatePresence>
       {product ? (
         <motion.div
-          className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/58 px-4 py-8 backdrop-blur-sm"
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/75 md:bg-ink/58 px-4 py-8 md:backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -29,6 +29,7 @@ export function QuickViewModal({
             initial={{ y: 24, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 18, opacity: 0, scale: 0.98 }}
+            style={{ willChange: "transform, opacity" }}
             className="relative grid w-full max-w-4xl overflow-hidden rounded-[2rem] border border-medical bg-white shadow-premium md:grid-cols-2"
           >
             <button
