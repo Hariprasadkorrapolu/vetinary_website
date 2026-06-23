@@ -14,10 +14,10 @@ export function ProductCard({
   onQuickView?: (product: Product) => void;
 }) {
   return (
-    <article className="group overflow-hidden rounded-[1.75rem] border border-medical/80 bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-premium hover:border-brand-pink/30">
+    <article className="group overflow-hidden rounded-[1.75rem] border border-medical/80 bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-premium hover:border-brand-pink/30 flex flex-col h-full">
       <Link
         href={`/products/${product.slug}`}
-        className="relative block aspect-[4/3] overflow-hidden bg-medical"
+        className="relative block aspect-[4/3] overflow-hidden bg-medical shrink-0"
       >
         <Image
           src={product.image}
@@ -27,21 +27,36 @@ export function ProductCard({
           sizes="(max-width: 768px) 80vw, (max-width: 1200px) 33vw, 25vw"
         />
       </Link>
-      <div className="p-5">
-        <div className="flex items-center justify-between gap-3">
-          <span className="rounded-full bg-medical px-3 py-1 text-xs text-slateblue">
-            {product.category}
-          </span>
-          {product.price ? (
-            <span className="text-sm text-ink">
-              Rs. {product.price.toLocaleString("en-IN")}
-            </span>
-          ) : null}
+      <div className="p-5 flex flex-col flex-1 justify-between">
+        <div>
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-1.5">
+              {Array.isArray(product.category) ? (
+                product.category.map((cat) => (
+                  <span
+                    key={cat}
+                    className="rounded-full bg-medical px-3 py-1 text-xs text-slateblue font-semibold font-sans"
+                  >
+                    {cat}
+                  </span>
+                ))
+              ) : (
+                <span className="rounded-full bg-medical px-3 py-1 text-xs text-slateblue font-semibold font-sans">
+                  {product.category}
+                </span>
+              )}
+            </div>
+            {product.price ? (
+              <span className="text-sm text-ink">
+                Rs. {product.price.toLocaleString("en-IN")}
+              </span>
+            ) : null}
+          </div>
+          <h3 className="mt-4 text-xl tracking-tight text-ink">{product.name}</h3>
+          <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">
+            {product.shortUsage}
+          </p>
         </div>
-        <h3 className="mt-4 text-xl tracking-tight text-ink">{product.name}</h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">
-          {product.shortUsage}
-        </p>
         <div className="mt-5 flex flex-col gap-2 sm:flex-row">
           {onQuickView ? (
             <button

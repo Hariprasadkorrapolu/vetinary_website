@@ -43,28 +43,30 @@ function Counter({
 }) {
   const [count, setCount] = useState(0);
   const elementRef = useRef(null);
-  const isInView = useInView(elementRef, { once: true, margin: "-100px" });
+  const isInView = useInView(elementRef, { once: true, margin: "-20px" });
 
   useEffect(() => {
     if (isInView) {
-      if (window.innerWidth < 768) {
+      if (typeof window !== "undefined" && window.innerWidth < 768) {
         setCount(value);
         return;
       }
-      let start = 0;
-      const end = value;
-      if (start === end) return;
 
-      const totalMiliseconds = duration * 1000;
-      const incrementTime = Math.min(Math.ceil(totalMiliseconds / end), 50);
+      let startTime: number | null = null;
+      let frameId: number;
 
-      const timer = setInterval(() => {
-        start += 1;
-        setCount(start);
-        if (start === end) clearInterval(timer);
-      }, incrementTime);
+      const animateCount = (timestamp: number) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+        setCount(Math.floor(progress * value));
 
-      return () => clearInterval(timer);
+        if (progress < 1) {
+          frameId = requestAnimationFrame(animateCount);
+        }
+      };
+
+      frameId = requestAnimationFrame(animateCount);
+      return () => cancelAnimationFrame(frameId);
     }
   }, [isInView, value, duration]);
 
@@ -394,7 +396,7 @@ export function AboutClient() {
                   {/* Dynamic yellow progress line starts from 1996 (idx 0) to 2028 (idx 4) */}
                   <motion.div
                     className="absolute top-1/2 left-4 h-1 bg-brand-yellow -translate-y-1/2 z-10 rounded-full shadow-[0_0_8px_#E8BE56]"
-                    style={{ width: `calc(${progressPercentage}% - 8px)` }}
+                    animate={{ width: `calc(${progressPercentage}% - 8px)` }}
                     transition={{ type: "spring", stiffness: 80, damping: 15 }}
                   />
 
@@ -439,59 +441,40 @@ export function AboutClient() {
                   </div>
                 </div>
 
-                {/* 2. Mobile Vertical Timeline Roadmap */}
-                <div className="flex flex-col gap-6 sm:hidden relative pl-4 pt-4">
-                  <div className="absolute left-6 top-4 bottom-4 w-1 bg-slate-100 rounded-full" />
-
-                  {/* Vertical traveling progress line */}
-                  <motion.div
-                    className="absolute left-[22px] top-4 w-1 bg-brand-yellow rounded-full shadow-[0_0_8px_#E8BE56]"
-                    style={{ height: `${progressPercentage}%` }}
-                    transition={{ type: "spring", stiffness: 80, damping: 15 }}
-                  />
+                {/* 2. Mobile Vertical Timeline Roadmap (Redesigned & Premium) */}
+                <div className="flex flex-col gap-8 sm:hidden relative pl-8 pt-4 pb-4">
+                  {/* Track Line */}
+                  <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-100 rounded-full" />
 
                   {timelineEvents.map((event, idx) => {
-                    const isActive = activeTimeline === idx;
+                    const IconComponent = event.icon;
                     return (
-                      <div
+                      <motion.div
                         key={event.year}
-                        onMouseEnter={() => setActiveTimeline(idx)}
-                        onClick={() => setActiveTimeline(idx)}
-                        className={`flex gap-4 p-4 rounded-2xl border transition-all duration-300 cursor-pointer ${
-                          isActive
-                            ? "bg-brand-blue/5 border-brand-yellow shadow-soft translate-x-1"
-                            : "bg-white border-slate-100 hover:border-brand-blue/20"
-                        }`}
+                        initial={{ opacity: 0, x: -16 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-40px" }}
+                        transition={{ duration: 0.5, delay: idx * 0.05 }}
+                        className="relative"
                       >
-                        <div
-                          className={`h-10 w-10 shrink-0 rounded-full flex items-center justify-center text-xs font-bold transition-all relative ${
-                            isActive
-                              ? "bg-brand-yellow text-brand-blue shadow-[0_0_15px_rgba(232,190,86,0.5)]"
-                              : "bg-slate-100 text-slate-500"
-                          }`}
-                        >
-                          {event.year}
-                          {isActive && !isMobile && (
-                            <span className="absolute -inset-1.5 rounded-full border border-brand-yellow/30 animate-ping" />
-                          )}
+                        {/* Node Icon on the track */}
+                        <div className="absolute -left-8 top-1 h-8 w-8 rounded-full border-2 border-brand-yellow/80 bg-white shadow-[0_0_10px_rgba(232,190,86,0.3)] flex items-center justify-center text-brand-blue z-20">
+                          <IconComponent className="h-4 w-4 text-brand-blue" />
                         </div>
-                        <div className="flex-1 text-left">
-                          <h4
-                            className={`text-sm font-semibold transition-colors ${isActive ? "text-brand-blue" : "text-slate-700"}`}
-                          >
+
+                        {/* Milestone Card */}
+                        <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-soft hover:border-brand-blue/20 transition-all text-left">
+                          <span className="inline-block bg-brand-yellow/10 text-brand-blue text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-brand-yellow/20">
+                            {event.year}
+                          </span>
+                          <h4 className="text-sm font-bold text-brand-blue mt-2">
                             {event.title}
                           </h4>
-                          {isActive && (
-                            <motion.p
-                              initial={{ opacity: 0, y: 5 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="mt-1.5 text-xs text-slate-500 leading-relaxed"
-                            >
-                              {event.desc}
-                            </motion.p>
-                          )}
+                          <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                            {event.desc}
+                          </p>
                         </div>
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>
@@ -564,7 +547,7 @@ export function AboutClient() {
       <section className="bg-gradient-to-br from-brand-blue to-[#1e2e5c] py-20 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-brand-pink/10 via-transparent to-transparent pointer-events-none" />
         <Container>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {[
               {
                 label: "Years Experience",
@@ -601,17 +584,17 @@ export function AboutClient() {
                   delay: idx * 0.1,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="relative rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm shadow-soft hover:bg-white/10 hover:border-white/20 transition-all duration-300 group hover:-translate-y-3"
+                className="relative rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-8 backdrop-blur-sm shadow-soft hover:bg-white/10 hover:border-white/20 transition-all duration-300 group hover:-translate-y-3"
               >
                 <div className="absolute top-0 right-0 h-16 w-16 rounded-full bg-brand-yellow/5 blur-xl group-hover:bg-brand-yellow/10 transition-colors" />
-                <h3 className="text-4xl sm:text-5xl font-bold font-heading text-brand-yellow">
+                <h3 className="text-3xl sm:text-5xl font-bold font-heading text-brand-yellow">
                   <Counter value={stat.value} />
                   {stat.suffix}
                 </h3>
-                <h4 className="mt-4 text-base font-semibold text-white">
+                <h4 className="mt-2 sm:mt-4 text-sm sm:text-base font-semibold text-white">
                   {stat.label}
                 </h4>
-                <p className="mt-2 text-xs text-slate-300">{stat.desc}</p>
+                <p className="mt-1 sm:mt-2 text-[10px] sm:text-xs text-slate-300">{stat.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -934,18 +917,16 @@ export function AboutClient() {
                     <div
                       key={step.title}
                       onClick={() => setActiveInfographicStep(idx)}
-                      className={`relative flex gap-4 p-3.5 rounded-2xl transition-all cursor-pointer ${
-                        isActive
+                      className={`relative flex gap-4 p-3.5 rounded-2xl transition-all cursor-pointer ${isActive
                           ? "bg-brand-blue/5 border border-brand-blue/10 shadow-soft"
                           : "hover:bg-slate-50"
-                      }`}
+                        }`}
                     >
                       <div
-                        className={`relative z-10 h-10 w-10 shrink-0 rounded-full flex items-center justify-center border-2 transition-all ${
-                          isActive
+                        className={`relative z-10 h-10 w-10 shrink-0 rounded-full flex items-center justify-center border-2 transition-all ${isActive
                             ? "bg-brand-yellow border-brand-blue text-brand-blue scale-110 shadow-soft"
                             : "bg-white border-slate-200 text-slate-400"
-                        }`}
+                          }`}
                       >
                         <Icon className="h-4 w-4" />
                       </div>
@@ -1003,7 +984,7 @@ export function AboutClient() {
               <div className="relative group max-w-sm w-full">
                 {/* Decorative border offset */}
                 <div className="absolute -left-4 -top-4 right-4 bottom-4 rounded-[2.5rem] border-2 border-brand-yellow/40 pointer-events-none transition-transform duration-500 group-hover:-translate-x-2 group-hover:-translate-y-2" />
-                
+
                 {/* Photo container */}
                 <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[2.5rem] shadow-premium bg-slate-100 border border-slate-200">
                   <Image

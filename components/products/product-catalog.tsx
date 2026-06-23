@@ -2,7 +2,7 @@
 
 import { SlidersHorizontal, Search } from "lucide-react";
 import { useMemo, useState } from "react";
-import { categories, productTypes } from "@/lib/constants";
+import { categories, productTypesByCategory } from "@/lib/constants";
 import { Product, products } from "@/lib/products";
 import { ProductCard } from "@/components/products/product-card";
 import { QuickViewModal } from "@/components/products/quick-view-modal";
@@ -31,6 +31,26 @@ export function ProductCatalog({
   const [quickView, setQuickView] = useState<Product | null>(null);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
+  // Dynamic type lookup based on selected category (Future Ready)
+  const visibleProductTypes = useMemo(() => {
+    if (selectedCategory === "All") {
+      // Get unique union of all product types across all categories
+      const allTypes = new Set<string>();
+      Object.values(productTypesByCategory).forEach((types) => {
+        types.forEach((type) => allTypes.add(type));
+      });
+      return Array.from(allTypes);
+    }
+    const categoryKey = selectedCategory as keyof typeof productTypesByCategory;
+    return productTypesByCategory[categoryKey] || [];
+  }, [selectedCategory]);
+
+  // Reset type selection to "All" whenever category changes
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setSelectedType("All");
+  };
+
   const filtered = useMemo(() => {
     const result = products
       .filter((product) =>
@@ -38,7 +58,10 @@ export function ProductCatalog({
       )
       .filter(
         (product) =>
-          selectedCategory === "All" || product.category === selectedCategory,
+          selectedCategory === "All" ||
+          (Array.isArray(product.category)
+            ? product.category.includes(selectedCategory as any)
+            : product.category === selectedCategory),
       )
       .filter(
         (product) => selectedType === "All" || product.type === selectedType,
@@ -110,7 +133,7 @@ export function ProductCatalog({
                   <FilterButton
                     key={category}
                     active={selectedCategory === category}
-                    onClick={() => setSelectedCategory(category)}
+                    onClick={() => handleCategoryChange(category)}
                   >
                     {category}
                   </FilterButton>
@@ -118,7 +141,7 @@ export function ProductCatalog({
               </FilterGroup>
 
               <FilterGroup title="Product Type">
-                {["All", ...productTypes].map((type) => (
+                {["All", ...visibleProductTypes].map((type) => (
                   <FilterButton
                     key={type}
                     active={selectedType === type}
@@ -152,12 +175,12 @@ export function ProductCatalog({
                   Product Catalog
                 </p>
 
-                <h2 className="mt-1 text-2xl tracking-tight text-ink">
+                <h2 className="mt-1 text-2xl tracking-tight text-ink font-heading">
                   {filtered.length} products found
                 </h2>
               </div>
 
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-500 font-sans">
                 Sticky filters, quick view, and detail pages are wired in.
               </p>
             </div>
@@ -189,9 +212,12 @@ function FilterGroup({
 }) {
   return (
     <div className="mt-7 border-t border-slate-100 pt-5">
-      <h3 className="mb-3 text-sm text-ink">{title}</h3>
+      <h3 className="mb-3.5 text-sm font-bold text-slateblue uppercase tracking-wider font-sans">{title}</h3>
 
-      <div className="flex flex-wrap gap-2">{children}</div>
+      {/* Horizontal scroll track on mobile, wrapping on desktop */}
+      <div className="flex overflow-x-auto no-scrollbar gap-2 pb-3 -mx-5 px-5 lg:mx-0 lg:px-0 lg:flex-wrap lg:overflow-visible">
+        {children}
+      </div>
     </div>
   );
 }
@@ -209,10 +235,10 @@ function FilterButton({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-4 py-2.5 text-xs font-semibold transition ${
+      className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 shrink-0 select-none ${
         active
-          ? "bg-slateblue text-white"
-          : "bg-slate-50 text-slate-600 hover:bg-medical hover:text-slateblue"
+          ? "bg-brand-blue text-white shadow-soft hover:shadow-md scale-[1.02]"
+          : "bg-slate-50 text-slate-600 hover:bg-medical hover:text-brand-blue"
       }`}
     >
       {children}

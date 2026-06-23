@@ -14,8 +14,8 @@ export const CONTACT_DETAILS = {
 export const SOCIAL_LINKS = [
   {
     label: "Instagram",
-    handle: "@stanmaxlabs",
-    href: "https://www.instagram.com/stanmaxlabs",
+    handle: "@stanmax_labs",
+    href: "https://www.instagram.com/stanmax_labs?igsh=MTNiY3gxNWc4ZXdvdQ==",
   },
   {
     label: "Facebook",
@@ -34,15 +34,33 @@ export const navItems = [
 
 export const categories = [
   "Poultry",
-  "Dog & Cat",
   "Sheep & Goat",
-  "Dairy",
-  "Aqua",
 ] as const;
 
 export const productTypes = [
-  "Nutrition",
-  "Supplement",
+  "Antibiotics",
+  "Antiprotozoal",
+  "Dewormers",
+  "Vitamin Supplements",
+  "Nutritional Supplements",
+  "Feed Supplements",
   "Therapeutic",
   "Water Soluble",
 ] as const;
+
+export const productTypesByCategory: Record<typeof categories[number], readonly typeof productTypes[number][]> = {
+  Poultry: [
+    "Antibiotics",
+    "Antiprotozoal",
+    "Dewormers",
+    "Vitamin Supplements",
+    "Nutritional Supplements",
+    "Feed Supplements",
+  ],
+  "Sheep & Goat": [
+    "Antibiotics",
+    "Dewormers",
+    "Vitamin Supplements",
+    "Nutritional Supplements",
+  ],
+};

@@ -53,7 +53,7 @@ export function QuickViewModal({
             </div>
             <div className="p-7 sm:p-9">
               <p className="text-sm uppercase tracking-[0.18em] text-slateblue/70">
-                {product.category}
+                {Array.isArray(product.category) ? product.category.join(" & ") : product.category}
               </p>
               <h2 className="mt-3 text-3xl tracking-tight text-ink">
                 {product.name}

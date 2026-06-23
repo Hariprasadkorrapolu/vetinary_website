@@ -115,11 +115,11 @@ export default function Home() {
           text="A focused view of Stanmax product families across poultry, dairy, aqua, companion animal, and small ruminant needs."
         />
         <Container className="mt-12">
-          <div className="no-scrollbar flex snap-x gap-6 overflow-x-auto pb-4 lg:grid lg:grid-cols-4 lg:overflow-visible">
+          <div className="no-scrollbar flex snap-x gap-6 overflow-x-auto pb-4 lg:grid lg:grid-cols-4 lg:overflow-visible gap-y-8">
             {featuredProducts.slice(0, 4).map((product) => (
               <div
                 key={product.id}
-                className="min-w-[82%] snap-start sm:min-w-[45%] lg:min-w-0"
+                className="min-w-[82%] snap-start sm:min-w-[45%] lg:min-w-0 h-full"
               >
                 <ProductCard product={product} />
               </div>

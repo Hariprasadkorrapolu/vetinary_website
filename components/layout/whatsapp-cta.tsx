@@ -136,7 +136,7 @@ export function WhatsAppCTA() {
             onClick={() => setShowBubble(false)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="flex h-14 items-center bg-[#25D366] md:bg-[#25D366]/95 md:backdrop-blur-md border border-white/15 rounded-full shadow-[0_16px_48px_rgba(37,211,102,0.24)] hover:shadow-[0_24px_60px_rgba(37,211,102,0.35)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden cursor-pointer select-none"
+            className="flex h-14 items-center bg-[#25D366] md:bg-[#25D366]/95 md:backdrop-blur-md border border-white/15 rounded-full shadow-[0_16px_48px_rgba(37,211,102,0.24)] hover:shadow-[0_24px_60px_rgba(37,211,102,0.35)] hover:-translate-y-0.5 transition-[box-shadow,transform] duration-200 overflow-hidden cursor-pointer select-none"
             initial={{ x: -100, opacity: 0 }}
             animate={{
               x: 0,
@@ -147,7 +147,7 @@ export function WhatsAppCTA() {
             transition={{
               x: { type: "spring", stiffness: 100, damping: 18, delay: 0.1 },
               opacity: { duration: 0.6, delay: 0.1 },
-              width: { type: "spring", stiffness: 180, damping: 22 },
+              width: { type: "spring", stiffness: 260, damping: 26 },
               scale: { duration: 1.5, ease: "easeInOut" },
             }}
           >
