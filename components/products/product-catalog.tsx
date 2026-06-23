@@ -235,11 +235,10 @@ function FilterButton({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 shrink-0 select-none ${
-        active
+      className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 shrink-0 select-none ${active
           ? "bg-brand-blue text-white shadow-soft hover:shadow-md scale-[1.02]"
           : "bg-slate-50 text-slate-600 hover:bg-medical hover:text-brand-blue"
-      }`}
+        }`}
     >
       {children}
     </button>
