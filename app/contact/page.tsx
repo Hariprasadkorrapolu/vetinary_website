@@ -36,37 +36,43 @@ const trustBadges = [
     icon: ShieldCheck,
     title: "GMP Certified",
     description: "Certified manufacturing facilities ensuring gold-standard quality.",
-    color: "text-emerald-500 bg-emerald-50",
+    iconColor: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20 shadow-emerald-500/10",
+    highlight: false,
   },
   {
     icon: Award,
     title: "ISO 9001:2015",
     description: "Quality Management Systems certified for process excellence.",
-    color: "text-brand-blue bg-blue-50",
+    iconColor: "text-brand-blue bg-brand-blue/10 border-brand-blue/20 shadow-brand-blue/10",
+    highlight: true,
   },
   {
     icon: History,
     title: "29+ Years",
     description: "Established in 1996, serving veterinary needs for nearly 3 decades.",
-    color: "text-amber-500 bg-amber-50",
+    iconColor: "text-brand-yellow bg-brand-yellow/10 border-brand-yellow/20 shadow-brand-yellow/10",
+    highlight: true,
   },
   {
     icon: TrendingUp,
     title: "WHO-GMP Expansion",
     description: "Actively scaling operations to match global WHOGMP criteria.",
-    color: "text-rose-500 bg-rose-50",
+    iconColor: "text-brand-pink bg-brand-pink/10 border-brand-pink/20 shadow-brand-pink/10",
+    highlight: true,
   },
   {
     icon: MapPin,
     title: "Trusted Nationwide",
     description: "Supplying veterinary healthcare solutions all across India.",
-    color: "text-indigo-500 bg-indigo-50",
+    iconColor: "text-brand-blue bg-brand-blue/10 border-brand-blue/20 shadow-brand-blue/10",
+    highlight: false,
   },
   {
     icon: Headphones,
     title: "Fast Support",
     description: "Dedicated account managers for client assistance.",
-    color: "text-cyan-500 bg-cyan-50",
+    iconColor: "text-cyan-500 bg-cyan-500/10 border-cyan-500/20 shadow-cyan-500/10",
+    highlight: false,
   },
 ];
 
@@ -319,26 +325,48 @@ export default function ContactPage() {
       />
 
       {/* SECTION 1: TRUST & CREDIBILITY BAR */}
-      <section className="bg-white border-y border-slate-100 py-10">
-        <Container>
-          <div className="text-center mb-8">
-            <span className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-blue/70">Quality & Experience Assured</span>
-            <h2 className="text-2xl mt-1 tracking-tight text-brand-blue">Veterinary Standards You Can Trust</h2>
+      <section className="relative bg-white border-y border-slate-100 py-16 overflow-hidden">
+        {/* Soft Background Glow */}
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-brand-blue/5 via-transparent to-transparent pointer-events-none" />
+        
+        <Container className="relative z-10">
+          <div className="text-center mb-12">
+            <span className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-pink">Quality & Experience Assured</span>
+            <h2 className="text-3xl mt-2 tracking-tight text-brand-blue font-heading font-bold">Veterinary Standards You Can Trust</h2>
           </div>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 items-stretch">
             {trustBadges.map((badge, idx) => {
               const Icon = badge.icon;
               return (
                 <motion.div
                   key={idx}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className="flex flex-col items-center text-center p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-soft transition-all duration-300"
+                  whileHover={{ y: -8, scale: 1.01 }}
+                  transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+                  className={`relative flex flex-col items-center text-center p-6 rounded-[2rem] bg-white/70 border backdrop-blur-md shadow-soft hover:shadow-premium hover:bg-white hover:border-brand-blue/10 transition-all duration-300 group
+                    ${badge.highlight ? 'border-brand-yellow/30 bg-gradient-to-b from-brand-yellow/5 to-white/70 shadow-soft' : 'border-slate-100'}
+                  `}
                 >
-                  <div className={`grid h-12 w-12 place-items-center rounded-2xl mb-4 ${badge.color}`}>
-                    <Icon className="h-6 w-6" />
+                  {/* Top Accent Line */}
+                  <div className={`absolute top-0 inset-x-8 h-1 rounded-full transition-opacity duration-300 opacity-0 group-hover:opacity-100
+                    ${badge.highlight ? 'bg-brand-yellow' : 'bg-brand-blue'}
+                  `} />
+
+                  {/* Icon Badge */}
+                  <div className={`grid h-16 w-16 place-items-center rounded-full mb-6 border transition-transform duration-500 group-hover:scale-110 shadow-lg ${badge.iconColor}`}>
+                    <Icon className="h-7 w-7 transition-transform duration-500 group-hover:rotate-[8deg]" />
                   </div>
-                  <h3 className="text-sm font-bold text-brand-blue leading-tight mb-1">{badge.title}</h3>
-                  <p className="text-xs text-slate-500 leading-normal">{badge.description}</p>
+
+                  {/* Title & Description */}
+                  <h3 className={`text-base font-bold leading-tight mb-2 font-heading transition-colors duration-300
+                    ${badge.highlight ? 'text-brand-blue scale-102 font-extrabold' : 'text-slate-800'}
+                  `}>
+                    {badge.title}
+                  </h3>
+                  
+                  <p className="text-xs text-slate-500 leading-relaxed font-normal">
+                    {badge.description}
+                  </p>
                 </motion.div>
               );
             })}

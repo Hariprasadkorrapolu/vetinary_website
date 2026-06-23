@@ -12,10 +12,10 @@ import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/container";
 
 const stats = [
-  { label: "Products", value: 500, suffix: "+", icon: BriefcaseMedical },
+  { label: "Products", value: 100, suffix: "+", icon: BriefcaseMedical },
   { label: "Clients", value: 1000, suffix: "+", icon: Handshake },
   { label: "Veterinary Partners", value: 50, suffix: "+", icon: ShieldCheck },
-  { label: "Years Experience", value: 20, suffix: "+", icon: Award },
+  { label: "Years Experience", value: 29, suffix: "+", icon: Award },
 ];
 
 export function Stats() {

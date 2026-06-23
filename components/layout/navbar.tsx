@@ -74,7 +74,7 @@ export function Navbar() {
           </div>
 
           <div className="hidden lg:block">
-            <Button onClick={() => openEnquiry()} className="px-6">
+            <Button onClick={() => openEnquiry(undefined, "Sales Inquiry")} className="px-6">
               Contact Sales
             </Button>
           </div>
@@ -129,7 +129,7 @@ export function Navbar() {
               <Button
                 onClick={() => {
                   setOpen(false);
-                  openEnquiry();
+                  openEnquiry(undefined, "Sales Inquiry");
                 }}
                 className="mt-6 w-full"
               >

@@ -8,7 +8,7 @@ import { WHATSAPP_URL } from "@/lib/constants";
 import { db } from "@/lib/firebase";
 
 type EnquiryContextValue = {
-  openEnquiry: (productName?: string) => void;
+  openEnquiry: (productName?: string, type?: "Sales Inquiry" | "Product Inquiry") => void;
 };
 
 const EnquiryContext = createContext<EnquiryContextValue | null>(null);
@@ -24,14 +24,16 @@ export function useEnquiry() {
 export function EnquiryProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [productName, setProductName] = useState("");
+  const [inquiryType, setInquiryType] = useState<"Sales Inquiry" | "Product Inquiry">("Sales Inquiry");
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const value = useMemo(
     () => ({
-      openEnquiry: (name?: string) => {
+      openEnquiry: (name?: string, type?: "Sales Inquiry" | "Product Inquiry") => {
         setProductName(name ?? "");
+        setInquiryType(type ?? (name ? "Product Inquiry" : "Sales Inquiry"));
         setSubmitted(false);
         setErrors({});
         setIsSubmitting(false);
@@ -50,6 +52,7 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
     const email = String(formData.get("email") ?? "").trim();
     const phone = String(formData.get("phone") ?? "").trim();
     const productName = String(formData.get("productName") ?? "").trim();
+    const inquiryType = String(formData.get("inquiryType") ?? "").trim();
     const message = String(formData.get("message") ?? "").trim();
 
     if (name.length < 2) nextErrors.name = "Please enter your name.";
@@ -69,6 +72,7 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
           email,
           phone,
           productName,
+          inquiryType,
           message,
           createdAt: serverTimestamp(),
         });
@@ -165,11 +169,21 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
                     error={errors.email}
                   />
                   <Field name="phone" label="Phone" error={errors.phone} />
-                  <Field
-                    name="productName"
-                    label="Product Name"
-                    defaultValue={productName}
-                  />
+                  <input type="hidden" name="inquiryType" value={inquiryType} />
+                  {inquiryType === "Product Inquiry" ? (
+                    <Field
+                      name="productName"
+                      label="Product Name"
+                      defaultValue={productName}
+                    />
+                  ) : (
+                    <Field
+                      name="productName"
+                      label="Product Name"
+                      defaultValue="Sales Inquiry"
+                      readOnly
+                    />
+                  )}
                   <label className="sm:col-span-2">
                     <span className="mb-2 block text-sm text-ink">Message</span>
                     <textarea
@@ -218,12 +232,14 @@ function Field({
   type = "text",
   defaultValue,
   error,
+  readOnly,
 }: {
   name: string;
   label: string;
   type?: string;
   defaultValue?: string;
   error?: string;
+  readOnly?: boolean;
 }) {
   return (
     <label>
@@ -232,7 +248,8 @@ function Field({
         name={name}
         type={type}
         defaultValue={defaultValue}
-        className="h-12 w-full rounded-2xl border border-slate-200 bg-white/86 px-4 text-sm outline-none transition focus:border-slateblue"
+        readOnly={readOnly}
+        className="h-12 w-full rounded-2xl border border-slate-200 bg-white/86 px-4 text-sm outline-none transition focus:border-slateblue read-only:bg-slate-100/80 read-only:text-slate-500 read-only:cursor-not-allowed"
       />
       {error ? (
         <span className="mt-1 block text-xs text-red-600">{error}</span>

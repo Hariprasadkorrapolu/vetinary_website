@@ -11,26 +11,22 @@ const slides = [
   {
     title: "Veterinary Excellence",
     text: "Science-led animal healthcare products built for veterinarians, distributors, and modern farms.",
-    image:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1800&q=82",
+    image: "/veterinary-excellence.png",
   },
   {
     title: "Poultry Health Solutions",
     text: "Performance-focused nutritional and therapeutic support for resilient commercial poultry operations.",
-    image:
-      "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1800&q=82",
+    image: "/poultry-health.png",
   },
   {
     title: "Dairy & Nutrition Care",
     text: "Premium mineral, metabolic, and productivity support for dairy herds and field veterinarians.",
-    image:
-      "https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&w=1800&q=82",
+    image: "/dairy-care.png",
   },
   {
     title: "Advanced Aqua Products",
     text: "Specialized aqua farm solutions designed for growth, stress recovery, and managed productivity.",
-    image:
-      "https://images.unsplash.com/photo-1524704796725-9fc3044a58b2?auto=format&fit=crop&w=1800&q=82",
+    image: "/aqua-products.png",
   },
 ];
 

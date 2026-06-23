@@ -534,8 +534,8 @@ export function AboutClient() {
 
               <div className="relative aspect-[4/3] overflow-hidden rounded-[2.5rem] shadow-premium bg-slate-100 w-full group">
                 <Image
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80"
-                  alt="Corporate manufacturing facility"
+                  src="/our-story.jpg"
+                  alt="Stanmax Foundation & Story"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -962,6 +962,141 @@ export function AboutClient() {
                     </div>
                   );
                 })}
+              </div>
+            </motion.div>
+          </div>
+        </Container>
+      </section>
+
+      {/* --------------------------------------------------
+      SECTION 6.5: LEADERSHIP & VISION
+      -------------------------------------------------- */}
+      <section className="bg-mist py-24 relative overflow-hidden border-t border-b border-slate-100">
+        {/* Abstract Background Design */}
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-brand-yellow/10 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute -right-20 top-20 h-[300px] w-[300px] rounded-full bg-brand-pink/5 blur-[120px] pointer-events-none" />
+
+        <Container className="relative z-10">
+          {/* Section Header */}
+          <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
+            <span className="text-xs uppercase tracking-[0.2em] text-[#2F3E6F] font-semibold">
+              Corporate Governance
+            </span>
+            <h2 className="text-3xl tracking-tight text-ink sm:text-4xl font-bold font-heading">
+              Leadership & Vision
+            </h2>
+            <p className="text-base text-slate-600 leading-relaxed">
+              Guiding STANMAX with experience, innovation, and an unwavering commitment to animal healthcare excellence.
+            </p>
+          </div>
+
+          {/* Grid Layout */}
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+            {/* Left Side: Photo Frame */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex justify-center lg:justify-start"
+            >
+              <div className="relative group max-w-sm w-full">
+                {/* Decorative border offset */}
+                <div className="absolute -left-4 -top-4 right-4 bottom-4 rounded-[2.5rem] border-2 border-brand-yellow/40 pointer-events-none transition-transform duration-500 group-hover:-translate-x-2 group-hover:-translate-y-2" />
+                
+                {/* Photo container */}
+                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[2.5rem] shadow-premium bg-slate-100 border border-slate-200">
+                  <Image
+                    src="/managing-director.jpg"
+                    alt="Ghanukota Sravan Kumar"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                    sizes="(max-width: 1024px) 100vw, 30vw"
+                  />
+                  {/* Subtle Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent pointer-events-none" />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right Side: Profile & Details */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8 text-left"
+            >
+              {/* Profile Header */}
+              <div>
+                <h3 className="text-2xl font-bold text-ink">Ghanukota Sravan Kumar</h3>
+                <p className="text-brand-pink font-semibold text-sm tracking-wider uppercase mt-1">
+                  Managing Director
+                </p>
+                <span className="inline-block bg-brand-blue/5 border border-brand-blue/10 rounded-full px-3.5 py-1 text-xs text-brand-blue font-medium mt-2.5">
+                  First-Generation Entrepreneur
+                </span>
+              </div>
+
+              {/* MD Message & Biography */}
+              <div className="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+                <p>
+                  Ghanukota Sravan Kumar is a first-generation entrepreneur and Managing Director with over 35 years of experience in the poultry and veterinary healthcare industry. A B.Sc. Poultry Science graduate from Kakatiya University, he has built his career on technical expertise in poultry health management, disease prevention, and solving grassroots farmer challenges.
+                </p>
+                <p>
+                  With 19 years of leadership experience, he is widely recognized for combining scientific knowledge with practical, farmer-centric solutions that improve animal health and farmer livelihoods. His leadership is driven by resilience, ethical values, innovation, and a strong commitment to quality and sustainable growth.
+                </p>
+                <p>
+                  Mr. Kumar has actively participated in national and international industry expos to adopt global best practices and strengthen the veterinary and poultry healthcare sector. His professional journey reflects adaptability, visionary leadership, and a lifelong dedication to advancing poultry healthcare while supporting farming communities across India through impactful and sustainable solutions.
+                </p>
+              </div>
+
+              {/* Achievement Highlights Badges Grid */}
+              <div>
+                <h4 className="text-sm uppercase tracking-wider text-slate-400 font-bold mb-4">
+                  Leadership Accolades
+                </h4>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {[
+                    { text: "B.Sc. Poultry Science (Kakatiya University)", icon: "🎓" },
+                    { text: "35+ Years Industry Experience", icon: "🐔" },
+                    { text: "19+ Years Leadership Experience", icon: "👨‍💼" },
+                    { text: "International Industry Exposure", icon: "🌍" },
+                    { text: "Innovation-Driven Leadership", icon: "💡" },
+                    { text: "Farmer-Centric Approach", icon: "🤝" },
+                  ].map((badge, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-3.5 rounded-2xl border border-medical bg-white p-3.5 shadow-soft hover:shadow-premium hover:-translate-y-0.5 transition-all duration-300"
+                    >
+                      <span className="text-xl shrink-0 w-8 h-8 rounded-xl bg-brand-blue/5 flex items-center justify-center">
+                        {badge.icon}
+                      </span>
+                      <span className="text-xs sm:text-sm font-semibold text-ink leading-snug">
+                        {badge.text}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Leadership Quote Card */}
+              <div className="relative rounded-3xl border border-brand-yellow/30 bg-gradient-to-br from-brand-yellow/5 to-transparent p-6 sm:p-8 text-left overflow-hidden">
+                {/* Big decorative quotes sign in background */}
+                <span className="absolute right-6 top-2 text-7xl font-serif text-brand-yellow/20 pointer-events-none select-none">
+                  “
+                </span>
+                <blockquote className="relative space-y-4">
+                  <p className="text-lg sm:text-xl font-heading font-bold text-brand-blue leading-snug italic">
+                    "Rise Together — Healthier Animals, Stronger Business."
+                  </p>
+                  <footer className="flex items-center gap-3">
+                    <div className="h-1.5 w-1.5 rounded-full bg-brand-pink" />
+                    <cite className="not-italic text-xs sm:text-sm text-slate-500 font-medium">
+                      <span className="font-bold text-ink">Ghanukota Sravan Kumar</span>, Managing Director
+                    </cite>
+                  </footer>
+                </blockquote>
               </div>
             </motion.div>
           </div>

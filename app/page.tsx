@@ -45,8 +45,8 @@ export default function Home() {
               <div className="absolute -left-5 -top-5 h-40 w-40 rounded-full bg-medical" />
               <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-premium">
                 <Image
-                  src="https://images.unsplash.com/photo-1579165466741-7f35e4755660?auto=format&fit=crop&w=1400&q=82"
-                  alt="Veterinary laboratory"
+                  src="/who-we-are.jpg"
+                  alt="Stanmax Veterinary Care"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
