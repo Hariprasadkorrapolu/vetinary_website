@@ -27,7 +27,6 @@ import {
   X
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { PageHero } from "@/components/ui/page-hero";
 import { CONTACT_DETAILS } from "@/lib/constants";
 
 // Trust Badges Data
@@ -316,13 +315,7 @@ export default function ContactPage() {
   };
 
   return (
-    <>
-      <PageHero
-        eyebrow="Contact Us"
-        title="Speak to our Animal Health Experts"
-        text="Whether you need details on pharmaceutical components, institutional distribution, or veterinary product supply, our team provides fast and scientifically sound support."
-        image="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1800&q=82"
-      />
+    <div className="pt-20 lg:pt-28">
 
       {/* SECTION 1: TRUST & CREDIBILITY BAR */}
       <section className="relative bg-white border-y border-slate-100 py-16 overflow-hidden">
@@ -1199,6 +1192,6 @@ export default function ContactPage() {
           </div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }

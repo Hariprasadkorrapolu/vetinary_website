@@ -9,13 +9,6 @@ import { useEnquiry } from "@/components/modals/enquiry-provider";
 
 const slides = [
   {
-    title: "Advanced Dairy & Cattle Healthcare Solutions",
-    text: "Supporting healthier cattle through innovative veterinary healthcare products, nutritional solutions, and trusted quality.",
-    image: "/dairy-herd.png",
-    ctaText: "Explore Dairy Products",
-    ctaLink: "/products?category=Dairy%20%2F%20Cattle",
-  },
-  {
     title: "Comprehensive Sheep & Goat Healthcare Solutions",
     text: "Reliable veterinary formulations designed to improve animal health, productivity, and farm profitability.",
     image: "/sheep-goat.png",
@@ -28,6 +21,13 @@ const slides = [
     image: "/poultry-health.png",
     ctaText: "Explore Poultry Products",
     ctaLink: "/products?category=Poultry",
+  },
+  {
+    title: "Advanced Dairy & Cattle Healthcare Solutions",
+    text: "Supporting healthier cattle through innovative veterinary healthcare products, nutritional solutions, and trusted quality.",
+    image: "/dairy-herd.png",
+    ctaText: "Explore Dairy Products",
+    ctaLink: "/products?category=Dairy%20%2F%20Cattle",
   },
 ];
 
