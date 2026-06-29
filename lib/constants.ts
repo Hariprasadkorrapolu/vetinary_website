@@ -35,6 +35,7 @@ export const navItems = [
 export const categories = [
   "Poultry",
   "Sheep & Goat",
+  "Dairy / Cattle",
 ] as const;
 
 export const productTypes = [
@@ -42,7 +43,7 @@ export const productTypes = [
   "Antiprotozoal",
   "Dewormers",
   "Vitamin Supplements",
-  "Nutritional Supplements",
+  "Toxin Binders",
   "Feed Supplements",
   "Therapeutic",
   "Water Soluble",
@@ -54,13 +55,20 @@ export const productTypesByCategory: Record<typeof categories[number], readonly 
     "Antiprotozoal",
     "Dewormers",
     "Vitamin Supplements",
-    "Nutritional Supplements",
+    "Toxin Binders",
     "Feed Supplements",
   ],
   "Sheep & Goat": [
     "Antibiotics",
     "Dewormers",
     "Vitamin Supplements",
-    "Nutritional Supplements",
+    "Toxin Binders",
+  ],
+  "Dairy / Cattle": [
+    "Antibiotics",
+    "Dewormers",
+    "Vitamin Supplements",
+    "Toxin Binders",
+    "Feed Supplements",
   ],
 };

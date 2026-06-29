@@ -17,13 +17,13 @@ export const metadata: Metadata = {
   title:
     "Stanmax Laboratories Private Limited | Veterinary Pharmaceutical Solutions",
   description:
-    "Premium veterinary, poultry, dairy, companion animal, and aqua health product solutions from Stanmax Laboratories Private Limited.",
+    "Premium veterinary, poultry, sheep, goat, and dairy cattle health product solutions from Stanmax Laboratories Private Limited.",
   keywords: [
     "Stanmax Laboratories",
     "veterinary products",
     "poultry health",
     "dairy nutrition",
-    "aqua products",
+    "sheep and goat health",
     "animal healthcare",
   ],
   openGraph: {

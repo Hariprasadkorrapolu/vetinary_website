@@ -9,24 +9,25 @@ import { useEnquiry } from "@/components/modals/enquiry-provider";
 
 const slides = [
   {
-    title: "Veterinary Excellence",
-    text: "Science-led animal healthcare products built for veterinarians, distributors, and modern farms.",
-    image: "/veterinary-excellence.png",
+    title: "Advanced Dairy & Cattle Healthcare Solutions",
+    text: "Supporting healthier cattle through innovative veterinary healthcare products, nutritional solutions, and trusted quality.",
+    image: "/dairy-herd.png",
+    ctaText: "Explore Dairy Products",
+    ctaLink: "/products?category=Dairy%20%2F%20Cattle",
+  },
+  {
+    title: "Comprehensive Sheep & Goat Healthcare Solutions",
+    text: "Reliable veterinary formulations designed to improve animal health, productivity, and farm profitability.",
+    image: "/sheep-goat.png",
+    ctaText: "Explore Sheep & Goat Products",
+    ctaLink: "/products?category=Sheep%20%26%20Goat",
   },
   {
     title: "Poultry Health Solutions",
-    text: "Performance-focused nutritional and therapeutic support for resilient commercial poultry operations.",
+    text: "Trusted veterinary solutions for healthier flocks and improved productivity.",
     image: "/poultry-health.png",
-  },
-  {
-    title: "Dairy & Nutrition Care",
-    text: "Premium mineral, metabolic, and productivity support for dairy herds and field veterinarians.",
-    image: "/dairy-care.png",
-  },
-  {
-    title: "Advanced Aqua Products",
-    text: "Specialized aqua farm solutions designed for growth, stress recovery, and managed productivity.",
-    image: "/aqua-products.png",
+    ctaText: "Explore Poultry Products",
+    ctaLink: "/products?category=Poultry",
   },
 ];
 
@@ -119,8 +120,10 @@ export function HeroCarousel() {
             transition={{ delay: 0.24 }}
             className="mt-9 flex flex-col gap-3 sm:flex-row w-full sm:w-auto"
           >
-            <Button variant="secondary" href="/products" className="w-full sm:w-auto">Explore Products</Button>
-            <Button variant="white" onClick={() => openEnquiry()} className="w-full sm:w-auto">
+            <Button variant="secondary" href={active.ctaLink} className="w-full sm:w-auto">
+              {active.ctaText}
+            </Button>
+            <Button variant="white" onClick={() => openEnquiry(undefined, "Sales Inquiry")} className="w-full sm:w-auto">
               Contact Sales
             </Button>
           </motion.div>

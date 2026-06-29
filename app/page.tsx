@@ -25,8 +25,8 @@ const reviews = [
     text: "The dairy nutrition range feels practical, well packaged, and supported by people who understand field realities.",
   },
   {
-    name: "AquaCare Distributors",
-    role: "Channel Partner",
+    name: "Apex Livestock Distributors",
+    role: "Distribution Partner",
     image:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
     text: "A professional portfolio, consistent supply conversations, and strong product presentation.",
@@ -71,8 +71,8 @@ export default function Home() {
               </h2>
               <p className="mt-6 text-lg leading-8 text-slate-600">
                 STANMAX LABORATORIES PVT. LTD. has made great strides in the
-                animal health care segment, producing and marketing a wide range
-                of products for livestock, poultry, and companion animal
+                animal healthcare segment, producing and marketing a wide range
+                of products for poultry, sheep, goat, and dairy cattle
                 segments.
               </p>
               <p className="mt-5 text-lg leading-8 text-slate-600">
@@ -112,7 +112,7 @@ export default function Home() {
         <SectionHeading
           eyebrow="Featured Products"
           title="High-confidence products for veterinary and farm performance"
-          text="A focused view of Stanmax product families across poultry, dairy, aqua, companion animal, and small ruminant needs."
+          text="A focused view of Stanmax product families across poultry, sheep, goat, and dairy cattle needs."
         />
         <Container className="mt-12">
           <div className="no-scrollbar flex snap-x gap-6 overflow-x-auto pb-4 lg:grid lg:grid-cols-4 lg:overflow-visible gap-y-8">

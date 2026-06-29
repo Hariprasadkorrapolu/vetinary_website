@@ -4,7 +4,7 @@ import { ProductCatalog } from "@/components/products/product-catalog";
 export const metadata = {
   title: "Our Products | Stanmax Laboratories",
   description:
-    "Browse Stanmax veterinary, poultry, dairy, aqua, and companion animal product catalog.",
+    "Browse Stanmax veterinary, poultry, sheep, goat, and dairy cattle product catalog.",
 };
 
 export default async function ProductsPage({

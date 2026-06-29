@@ -3,10 +3,10 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { 
+import {
   MessageCircle, ZoomIn, ZoomOut, RotateCcw, X, Maximize2,
   FlaskConical, Activity, Gauge, Boxes, ArrowLeft,
-  ShieldCheck, HeartPulse, Sparkles, TrendingUp, Scale, 
+  ShieldCheck, HeartPulse, Sparkles, TrendingUp, Scale,
   ThumbsUp, Droplets, CheckCircle2, ShieldAlert
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -82,7 +82,7 @@ function parseComposition(compositionStr: string): { ingredient: string; concent
       const concentration = middleMatch[2].trim();
       return { ingredient, concentration };
     }
-    
+
     const endPattern = /(.*?)\s+(\d+(?:\.\d+)?\s*(?:%\s*W\/[vw]|mg|gm|g|%)(?:\s+I\.P\.)?)$/i;
     const endMatch = part.match(endPattern);
     if (endMatch) {
@@ -91,7 +91,7 @@ function parseComposition(compositionStr: string): { ingredient: string; concent
         concentration: endMatch[2].trim()
       };
     }
-    
+
     return {
       ingredient: part,
       concentration: "Standardized"
@@ -148,8 +148,8 @@ export function ProductDetailClient({ product }: { product: Product }) {
             <span className="text-slate-300">/</span>
             <span className="text-[#2F3E6F] font-semibold">{product.name}</span>
           </div>
-          <Link 
-            href="/products" 
+          <Link
+            href="/products"
             className="inline-flex items-center gap-2 text-sm font-semibold text-[#2F3E6F] hover:text-[#ED6E80] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -161,12 +161,12 @@ export function ProductDetailClient({ product }: { product: Product }) {
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] items-start mb-16">
           {/* Left Column: Image Section */}
           <div className="w-full">
-            <div 
+            <div
               className="relative w-full aspect-square overflow-hidden rounded-[2rem] border border-[#F0F4F8] bg-white shadow-premium p-6 sm:p-8 md:p-12 flex items-center justify-center group"
             >
               {/* Technical Grid Overlay */}
               <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f4f8_1px,transparent_1px),linear-gradient(to_bottom,#f0f4f8_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 pointer-events-none" />
-              
+
               {/* Product Badge */}
               <div className="absolute top-4 left-6 z-10 flex items-center gap-1.5 rounded-full bg-slate-50 px-3 py-1 border border-slate-100 pointer-events-none">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E8BE56] animate-pulse"></span>
@@ -174,7 +174,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               </div>
 
               {/* Image zoom wrapper */}
-              <div 
+              <div
                 className="relative w-full h-full cursor-zoom-in overflow-hidden z-10"
                 onMouseMove={handleMouseMove}
                 onMouseEnter={() => setIsHovering(true)}
@@ -237,7 +237,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#2F3E6F]/60">
                 Pharmaceutical Profile
               </span>
-              
+
               <h1 className="mt-2 text-4xl lg:text-5xl font-bold tracking-tight text-[#2F3E6F] font-heading leading-tight">
                 {product.name}
               </h1>
@@ -255,7 +255,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
               {/* Action Buttons in top fold (First section) */}
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                <Button 
+                <Button
                   onClick={() => openEnquiry(product.name)}
                   variant="primary"
                   className="w-full sm:w-auto font-bold"
@@ -283,8 +283,8 @@ export function ProductDetailClient({ product }: { product: Product }) {
                   {product.benefits.map((benefit) => {
                     const Icon = getBenefitIcon(benefit);
                     return (
-                      <div 
-                        key={benefit} 
+                      <div
+                        key={benefit}
                         className="group flex items-center gap-3.5 rounded-2xl border border-slate-200/60 bg-white p-4.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-[#2F3E6F]/25"
                       >
                         <div className="rounded-xl bg-[#2F3E6F]/5 p-2 text-[#2F3E6F] transition-colors duration-300 group-hover:bg-[#2F3E6F]/10 shrink-0">
@@ -325,7 +325,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                   <p className="text-xs text-slate-400 font-sans">Active ingredients concentration profile</p>
                 </div>
               </div>
-              
+
               <div className="overflow-hidden rounded-2xl border border-slate-100 font-sans">
                 <table className="w-full text-left text-sm table-fixed">
                   <thead className="bg-[#2F3E6F]/5 text-xs font-bold uppercase tracking-wider text-[#2F3E6F]">
@@ -359,11 +359,11 @@ export function ProductDetailClient({ product }: { product: Product }) {
                   <p className="text-xs text-slate-400 font-sans">Target parasites, conditions, and infections</p>
                 </div>
               </div>
-              
+
               <div className="grid gap-3 sm:grid-cols-2 font-sans">
                 {parsedUsage.map((item, idx) => (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="flex items-center gap-3 rounded-2xl border border-slate-50 bg-[#F5F8FB]/70 px-4.5 py-3.5 transition-colors duration-200 hover:bg-[#F5F8FB]"
                   >
                     <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#E8BE56]/20 text-[#b88c1c]">
@@ -388,7 +388,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
                   <p className="text-xs text-slate-400 font-sans">Therapeutic routes and administration volumes</p>
                 </div>
               </div>
-              
+
               <div className="rounded-2xl border border-[#E8BE56]/20 bg-[#E8BE56]/5 p-5.5 font-sans">
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5 rounded-lg bg-[#E8BE56] p-1.5 text-white shrink-0">
@@ -417,11 +417,11 @@ export function ProductDetailClient({ product }: { product: Product }) {
                   <p className="text-xs text-slate-400 font-sans">Available commercial packaging configurations</p>
                 </div>
               </div>
-              
+
               <div className="flex flex-wrap gap-2.5 font-sans">
                 {parsedPackaging.map((pack, idx) => (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-5 py-2.5 text-sm font-bold text-[#2F3E6F] transition-all duration-200 hover:border-[#2F3E6F]/30 hover:bg-[#2F3E6F]/5"
                   >
                     {pack}
@@ -476,23 +476,23 @@ export function ProductDetailClient({ product }: { product: Product }) {
           <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-[#E8BE56]/10 blur-2xl pointer-events-none" />
           <div className="absolute -left-16 -bottom-16 w-64 h-64 rounded-full bg-[#ED6E80]/15 blur-2xl pointer-events-none" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] pointer-events-none" />
-          
+
           <div className="relative px-5 py-14 sm:px-12 sm:py-20 text-center max-w-3xl mx-auto z-10">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#E8BE56] backdrop-blur-sm border border-white/5 mb-6">
               <MessageCircle className="h-3.5 w-3.5" />
               Direct Support Channels
             </span>
-            
+
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-heading">
               Need Product Information?
             </h2>
-            
+
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-sans max-w-2xl mx-auto">
               Contact our veterinary product specialists for dosage guidance, distribution opportunities, and technical support.
             </p>
-            
+
             <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
-              <Button 
+              <Button
                 onClick={() => openEnquiry(product.name)}
                 className="w-full sm:w-auto bg-[#E8BE56] hover:bg-[#d9b047] text-[#2F3E6F] font-bold px-8 py-6 rounded-full text-base transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
               >
@@ -534,7 +534,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Central image display */}
           <div className="relative flex items-center justify-center w-full max-w-4xl h-[70vh] overflow-hidden rounded-2xl bg-white/5 p-4">
-            <div 
+            <div
               className="relative w-full h-full transition-transform duration-200 ease-out select-none"
               style={{
                 transform: `scale(${lightboxScale})`,
