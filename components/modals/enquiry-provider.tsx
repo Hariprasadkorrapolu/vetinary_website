@@ -8,7 +8,12 @@ import { WHATSAPP_URL } from "@/lib/constants";
 import { db } from "@/lib/firebase";
 
 type EnquiryContextValue = {
-  openEnquiry: (productName?: string, type?: "Sales Inquiry" | "Product Inquiry") => void;
+  openEnquiry: (
+    productName?: string,
+    type?: "Sales Inquiry" | "Product Inquiry",
+    category?: string,
+    productType?: string
+  ) => void;
 };
 
 const EnquiryContext = createContext<EnquiryContextValue | null>(null);
@@ -25,15 +30,19 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [productName, setProductName] = useState("");
   const [inquiryType, setInquiryType] = useState<"Sales Inquiry" | "Product Inquiry">("Sales Inquiry");
+  const [category, setCategory] = useState("");
+  const [productType, setProductType] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const value = useMemo(
     () => ({
-      openEnquiry: (name?: string, type?: "Sales Inquiry" | "Product Inquiry") => {
+      openEnquiry: (name?: string, type?: "Sales Inquiry" | "Product Inquiry", cat?: string, prodType?: string) => {
         setProductName(name ?? "");
         setInquiryType(type ?? (name ? "Product Inquiry" : "Sales Inquiry"));
+        setCategory(cat ?? "");
+        setProductType(prodType ?? "");
         setSubmitted(false);
         setErrors({});
         setIsSubmitting(false);
@@ -54,6 +63,7 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
     const productName = String(formData.get("productName") ?? "").trim();
     const inquiryType = String(formData.get("inquiryType") ?? "").trim();
     const message = String(formData.get("message") ?? "").trim();
+    const honey = String(formData.get("_honey") ?? "").trim();
 
     if (name.length < 2) nextErrors.name = "Please enter your name.";
     if (!/^\S+@\S+\.\S+$/.test(email))
@@ -65,26 +75,56 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
     if (Object.keys(nextErrors).length === 0) {
       setIsSubmitting(true);
 
+      // Honeypot spam protection
+      if (honey) {
+        // Silently ignore spam and simulate success
+        setTimeout(() => {
+          form.reset();
+          setSubmitted(true);
+          setProductName("");
+          setIsSubmitting(false);
+        }, 1000);
+        return;
+      }
+
       try {
-        // Persist the enquiry in Firestore using Firebase v9 modular APIs.
-        await addDoc(collection(db, "contact_enquiries"), {
-          name,
-          email,
-          phone,
-          productName,
-          inquiryType,
-          message,
-          createdAt: serverTimestamp(),
+        const response = await fetch("https://formsubmit.co/ajax/contact@stanmaxlabs.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            _captcha: "false",
+            _template: "table",
+            _next: "https://stanmaxlabs.com/thank-you",
+            _subject: inquiryType === "Product Inquiry" ? "New Product Inquiry" : "New Contact Sales Inquiry",
+            _honey: "",
+            "Submission Date": new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
+            "Inquiry Source": inquiryType === "Product Inquiry" ? "Product Details Page" : "Navigation Bar (Contact Sales)",
+            "Customer Name": name,
+            "Company Name": "N/A",
+            "Email": email,
+            "Phone": phone,
+            "Product Name": productName || (inquiryType === "Product Inquiry" ? "" : "Sales Inquiry"),
+            "Category": category || "N/A",
+            "Product Type": productType || "N/A",
+            "Inquiry Type": inquiryType,
+            "Message": message
+          })
         });
+
+        if (!response.ok) {
+          throw new Error("Failed to submit form");
+        }
 
         form.reset();
         setSubmitted(true);
         setProductName("");
-        window.alert("Inquiry submitted successfully.");
       } catch (error) {
         console.error("Failed to submit contact enquiry:", error);
         setErrors({
-          form: "Unable to submit your inquiry right now. Please try again.",
+          form: "We couldn't submit your enquiry. Please try again or contact us directly.",
         });
       } finally {
         setIsSubmitting(false);
@@ -161,6 +201,7 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
                   }}
                   className="mt-8 grid gap-4 sm:grid-cols-2"
                 >
+                  <input type="text" name="_honey" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
                   <Field name="name" label="Name" error={errors.name} />
                   <Field
                     name="email"

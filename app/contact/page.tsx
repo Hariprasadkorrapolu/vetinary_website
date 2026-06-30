@@ -174,7 +174,8 @@ export default function ContactPage() {
     phoneNumber: "",
     emailAddress: "",
     inquiryType: "",
-    message: ""
+    message: "",
+    _honey: ""
   });
 
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
@@ -251,14 +252,15 @@ export default function ContactPage() {
     setFormErrors(prev => ({ ...prev, [name]: error }));
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Trigger validation on all fields
+    // Trigger validation on all fields (excluding _honey)
     const newErrors: Record<string, string> = {};
     const newTouched: Record<string, boolean> = {};
 
     Object.keys(formData).forEach(key => {
+      if (key === "_honey") return;
       const val = formData[key as keyof typeof formData];
       const err = validateField(key, val);
       if (err) newErrors[key] = err;
@@ -270,11 +272,54 @@ export default function ContactPage() {
 
     if (Object.keys(newErrors).length === 0) {
       setIsSubmitting(true);
-      // Simulate API submission
-      setTimeout(() => {
+
+      // Honeypot spam protection
+      if (formData._honey.trim()) {
+        setTimeout(() => {
+          setIsSubmitting(false);
+          setIsSubmitSuccess(true);
+        }, 1000);
+        return;
+      }
+
+      try {
+        const response = await fetch("https://formsubmit.co/ajax/contact@stanmaxlabs.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            _captcha: "false",
+            _template: "table",
+            _next: "https://stanmaxlabs.com/thank-you",
+            _subject: "New Contact Enquiry",
+            _honey: "",
+            "Submission Date": new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
+            "Inquiry Source": "Contact Us Page",
+            "Customer Name": `${formData.firstName} ${formData.lastName}`.trim(),
+            "Company Name": formData.companyName || "N/A",
+            "Email": formData.emailAddress,
+            "Phone": formData.phoneNumber,
+            "Inquiry Type": formData.inquiryType,
+            "Message": formData.message
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to submit form");
+        }
+
         setIsSubmitting(false);
         setIsSubmitSuccess(true);
-      }, 1500);
+      } catch (error) {
+        console.error("Failed to submit contact enquiry:", error);
+        setFormErrors(prev => ({
+          ...prev,
+          form: "We couldn't submit your enquiry. Please try again or contact us directly."
+        }));
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -286,7 +331,8 @@ export default function ContactPage() {
       phoneNumber: "",
       emailAddress: "",
       inquiryType: "",
-      message: ""
+      message: "",
+      _honey: ""
     });
     setFormErrors({});
     setTouchedFields({});
@@ -321,13 +367,13 @@ export default function ContactPage() {
       <section className="relative bg-white border-y border-slate-100 py-16 overflow-hidden">
         {/* Soft Background Glow */}
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-brand-blue/5 via-transparent to-transparent pointer-events-none" />
-        
+
         <Container className="relative z-10">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-pink">Quality & Experience Assured</span>
             <h2 className="text-3xl mt-2 tracking-tight text-brand-blue font-heading font-bold">Veterinary Standards You Can Trust</h2>
           </div>
-          
+
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 items-stretch">
             {trustBadges.map((badge, idx) => {
               const Icon = badge.icon;
@@ -356,7 +402,7 @@ export default function ContactPage() {
                   `}>
                     {badge.title}
                   </h3>
-                  
+
                   <p className="text-xs text-slate-500 leading-relaxed font-normal">
                     {badge.description}
                   </p>
@@ -371,15 +417,15 @@ export default function ContactPage() {
       <section className="section-pad bg-mist">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            
+
             {/* Left side: Response Times + Quick Action Hub */}
             <div className="flex flex-col gap-10">
-              
+
               {/* SECTION 2: Response Timings */}
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] font-bold text-brand-pink/90 mb-3">Service Level Guarantees</p>
                 <h2 className="text-3xl text-brand-blue mb-6">Designed For Rapid Response</h2>
-                
+
                 <div className="grid gap-5 sm:grid-cols-3">
                   {responseTimes.map((item, idx) => {
                     const Icon = item.icon;
@@ -413,7 +459,7 @@ export default function ContactPage() {
               <div className="bg-brand-blue/5 border border-brand-blue/10 p-6 sm:p-8 rounded-[2.5rem]">
                 <h3 className="text-2xl text-brand-blue mb-2">Prefer a Quick Action?</h3>
                 <p className="text-sm text-slate-600 mb-6">Choose any path below to connect with us in seconds.</p>
-                
+
                 <div className="grid gap-4 sm:grid-cols-2">
                   {/* WhatsApp CTA */}
                   <a
@@ -446,7 +492,7 @@ export default function ContactPage() {
 
                   {/* Send Email */}
                   <a
-                    href="mailto:info@stanmaxlaboratories.com"
+                    href={`mailto:${CONTACT_DETAILS.email}`}
                     className="flex items-center gap-3 bg-white border border-slate-200 hover:border-brand-blue/30 text-brand-blue p-4 rounded-2xl shadow-soft hover:shadow-premium hover:-translate-y-0.5 transition-all duration-300 font-semibold text-sm justify-center sm:justify-start"
                   >
                     <Mail className="h-5 w-5 text-brand-yellow" />
@@ -513,8 +559,8 @@ export default function ContactPage() {
                     <h3 className="text-base font-bold text-brand-blue">Email Support</h3>
                     <div className="mt-4">
                       <span className="block text-xs text-slate-400 font-medium uppercase tracking-wider">Business & Support</span>
-                      <a href="mailto:info@stanmaxlaboratories.com" className="text-lg font-semibold text-brand-blue hover:text-brand-pink transition-colors block break-all mt-1">
-                        info@stanmaxlaboratories.com
+                      <a href={`mailto:${CONTACT_DETAILS.email}`} className="text-lg font-semibold text-brand-blue hover:text-brand-pink transition-colors block break-all mt-1">
+                        {CONTACT_DETAILS.email}
                       </a>
                     </div>
                   </div>
@@ -562,7 +608,7 @@ export default function ContactPage() {
       <section id="contact-form-section" className="section-pad bg-white">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            
+
             {/* Form Side */}
             <div className="bg-slate-50 border border-slate-100 p-5 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] relative overflow-hidden">
               <AnimatePresence mode="wait">
@@ -574,6 +620,15 @@ export default function ContactPage() {
                     exit={{ opacity: 0 }}
                     className="grid gap-5 sm:grid-cols-2 relative z-10"
                   >
+                    <input
+                      type="text"
+                      name="_honey"
+                      value={formData._honey}
+                      onChange={handleInputChange}
+                      style={{ display: "none" }}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
                     <div className="sm:col-span-2">
                       <span className="text-xs uppercase tracking-[0.2em] font-semibold text-brand-pink">Priority Dispatch</span>
                       <h3 className="text-2xl mt-1 text-brand-blue">Send an Official Inquiry</h3>
@@ -751,29 +806,7 @@ export default function ContactPage() {
                         <p className="text-[11px] text-red-500 font-medium mt-0.5">{formErrors.inquiryType}</p>
                       )}
 
-                      {/* Smart Routing Information Display */}
-                      <AnimatePresence>
-                        {formData.inquiryType && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="bg-brand-blue/5 border border-brand-blue/10 p-3.5 rounded-xl mt-2 flex items-start gap-2.5"
-                          >
-                            <Info className="h-4 w-4 text-brand-blue shrink-0 mt-0.5" />
-                            <div className="text-[12px] leading-relaxed text-slate-600">
-                              <span className="font-semibold text-brand-blue">Smart Routing:</span> Your inquiry will go to our{" "}
-                              <span className="font-bold text-brand-pink uppercase tracking-wider text-[11px]">
-                                {routingMap[formData.inquiryType].team}
-                              </span>{" "}
-                              ({routingMap[formData.inquiryType].email}).
-                              <p className="text-slate-500 mt-1 text-[11.5px] italic">
-                                {routingMap[formData.inquiryType].description}
-                              </p>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+
                     </div>
 
                     {/* Message Area */}
@@ -803,6 +836,12 @@ export default function ContactPage() {
                         <p className="text-[11px] text-red-500 font-medium mt-0.5">{formErrors.message}</p>
                       )}
                     </div>
+
+                    {formErrors.form && (
+                      <p className="text-sm text-red-500 sm:col-span-2 font-medium">
+                        {formErrors.form}
+                      </p>
+                    )}
 
                     {/* Form Submit Buttons */}
                     <div className="sm:col-span-2 mt-3 flex items-center justify-between gap-4 flex-wrap">
@@ -842,18 +881,10 @@ export default function ContactPage() {
                     <div className="h-16 w-16 bg-emerald-50 border border-emerald-100 rounded-full flex items-center justify-center text-emerald-500 mb-6 shadow-soft">
                       <Check className="h-8 w-8 stroke-[3]" />
                     </div>
-                    <h3 className="text-3xl text-brand-blue mb-3">Inquiry Dispatched Successfully</h3>
-                    <p className="text-sm text-slate-600 max-w-md leading-relaxed">
-                      Thank you for reaching out, <span className="font-semibold">{formData.firstName}</span>. Your message has been routed to our{" "}
-                      <span className="font-bold text-brand-pink uppercase tracking-wider text-[12px]">
-                        {routingMap[formData.inquiryType]?.team || "Customer Support"}
-                      </span>.
-                    </p>
-                    
-                    <div className="bg-slate-100 border border-slate-200/50 p-4 rounded-2xl w-full max-w-sm mt-6 text-left text-xs text-slate-500 space-y-1">
-                      <p><strong>Routing Destination:</strong> {routingMap[formData.inquiryType]?.email}</p>
-                      <p><strong>Tracking status:</strong> Queue priority - High</p>
-                      <p><strong>Target SLA:</strong> Review & Response within 2 hours</p>
+                    <h3 className="text-2xl sm:text-3xl text-brand-blue mb-4 leading-tight">Thank You for Contacting STANMAX Laboratories</h3>
+                    <div className="text-sm text-slate-600 max-w-md leading-relaxed space-y-3">
+                      <p>Thank you for reaching out to STANMAX Laboratories.</p>
+                      <p>One of our representatives will review your request and contact you as soon as possible.</p>
                     </div>
 
                     <button
@@ -869,7 +900,7 @@ export default function ContactPage() {
 
             {/* Privacy Box & Trust Card */}
             <div className="flex flex-col justify-between gap-8">
-              
+
               {/* SECTION 7: Security & Privacy Trust Box */}
               <div className="bg-slate-50 border border-slate-100 p-5 sm:p-8 rounded-[2rem] flex flex-col justify-center">
                 <div className="flex gap-4">
@@ -921,9 +952,9 @@ export default function ContactPage() {
             <span className="text-xs uppercase tracking-[0.2em] font-bold text-brand-blue/70">Geographic Headquarters</span>
             <h2 className="text-3xl text-brand-blue mt-1">Our Manufacturing & Admin Base</h2>
           </div>
-          
+
           <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] border border-slate-200 bg-white shadow-premium min-h-[320px] sm:min-h-[500px] flex flex-col justify-end">
-            
+
             {/* The Google Map Embed */}
             <iframe
               title="Stanmax location map"
@@ -932,7 +963,7 @@ export default function ContactPage() {
               allowFullScreen={false}
               loading="lazy"
             />
-            
+
             {/* Location details card floating on top of the Map */}
             <div className="relative z-10 m-4 sm:m-8 max-w-sm bg-white/95 backdrop-blur-md border border-slate-200/60 p-4 sm:p-7 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.15)]">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-[10px] font-bold uppercase tracking-wider mb-3">
@@ -946,7 +977,7 @@ export default function ContactPage() {
               <p className="text-xs text-slate-500 leading-relaxed mb-4">
                 2-24-86/3/1, Lakshminarayananagar Colony, IDA Uppal, Hyderabad, Telangana - 500039, India.
               </p>
-              
+
               <div className="flex gap-2">
                 <a
                   href="https://www.google.com/maps/search/?api=1&query=Stanmax+Laboratories+IDA+Uppal+Hyderabad"
@@ -992,7 +1023,7 @@ export default function ContactPage() {
                         className={`h-4 w-4 text-brand-blue shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
                       />
                     </button>
-                    
+
                     <AnimatePresence initial={false}>
                       {isOpen && (
                         <motion.div
@@ -1026,7 +1057,7 @@ export default function ContactPage() {
           <p className="text-base sm:text-lg text-white/80 leading-relaxed max-w-2xl mx-auto mb-10">
             Our team is ready to assist with product information, technical guidance, business partnerships, and distribution opportunities.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href={whatsappUrl}
@@ -1037,7 +1068,7 @@ export default function ContactPage() {
               <MessageCircle className="h-5 w-5 fill-white" />
               Chat on WhatsApp
             </a>
-            
+
             <a
               href="tel:+919505824365"
               className="w-full sm:w-auto bg-brand-yellow hover:bg-[#d6aa3c] text-brand-blue px-8 py-3.5 rounded-full font-semibold text-sm shadow-soft hover:shadow-premium hover:-translate-y-0.5 transition-all duration-300 inline-flex items-center justify-center gap-2"

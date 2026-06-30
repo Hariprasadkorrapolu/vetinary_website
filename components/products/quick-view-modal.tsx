@@ -67,7 +67,12 @@ export function QuickViewModal({
                 {product.description}
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Button onClick={() => openEnquiry(product.name)}>
+                <Button onClick={() => openEnquiry(
+                  product.name,
+                  "Product Inquiry",
+                  typeof product.category === "string" ? product.category : product.category.join(", "),
+                  product.type
+                )}>
                   Contact Enquiry
                 </Button>
                 <Button href={`/products/${product.slug}`} variant="ghost">

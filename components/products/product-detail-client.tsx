@@ -256,7 +256,12 @@ export function ProductDetailClient({ product }: { product: Product }) {
               {/* Action Buttons in top fold (First section) */}
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
                 <Button
-                  onClick={() => openEnquiry(product.name)}
+                  onClick={() => openEnquiry(
+                    product.name,
+                    "Product Inquiry",
+                    typeof product.category === "string" ? product.category : product.category.join(", "),
+                    product.type
+                  )}
                   variant="primary"
                   className="w-full sm:w-auto font-bold"
                 >
@@ -493,7 +498,12 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
             <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
               <Button
-                onClick={() => openEnquiry(product.name)}
+                onClick={() => openEnquiry(
+                  product.name,
+                  "Product Inquiry",
+                  typeof product.category === "string" ? product.category : product.category.join(", "),
+                  product.type
+                )}
                 className="w-full sm:w-auto bg-[#E8BE56] hover:bg-[#d9b047] text-[#2F3E6F] font-bold px-8 py-6 rounded-full text-base transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
               >
                 Contact Enquiry
