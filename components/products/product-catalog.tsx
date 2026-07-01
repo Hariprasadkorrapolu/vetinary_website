@@ -1,12 +1,13 @@
 "use client";
 
-import { SlidersHorizontal, Search, Shield, HelpCircle } from "lucide-react";
-import { useMemo, useState } from "react";
+import { SlidersHorizontal, Search, Shield, HelpCircle, X } from "lucide-react";
+import { useMemo, useState, useEffect } from "react";
 import { categories, productTypesByCategory } from "@/lib/constants";
 import { Product, products } from "@/lib/products";
 import { ProductCard } from "@/components/products/product-card";
 import { QuickViewModal } from "@/components/products/quick-view-modal";
 import { useEnquiry } from "@/components/modals/enquiry-provider";
+import { AnimatePresence, motion } from "framer-motion";
 
 type SortOption = "Most Popular" | "Latest" | "Featured" | "A-Z" | "Z-A";
 
@@ -88,6 +89,18 @@ export function ProductCatalog({
   const [quickView, setQuickView] = useState<Product | null>(null);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const { openEnquiry } = useEnquiry();
+
+  // Prevent scroll when mobile filters are open
+  useEffect(() => {
+    if (isFiltersOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isFiltersOpen]);
 
   // Dynamic type lookup based on selected category (Future Ready)
   const visibleProductTypes = useMemo(() => {
@@ -197,24 +210,9 @@ export function ProductCatalog({
 
           <div className="grid gap-6 lg:grid-cols-[20rem_1fr]">
             
-            {/* Filter Sidebar */}
-            <aside className="lg:sticky lg:top-28 lg:self-start">
-              {/* Mobile Filter Toggle Button */}
-              <button
-                type="button"
-                onClick={() => setIsFiltersOpen(!isFiltersOpen)}
-                className="flex w-full items-center justify-between rounded-2xl border border-medical bg-white px-5 py-4 text-sm font-semibold text-slateblue shadow-soft lg:hidden mb-4"
-              >
-                <span className="flex items-center gap-2">
-                  <SlidersHorizontal className="h-4 w-4" />
-                  {isFiltersOpen ? "Hide Filters" : "Show Filters"}
-                </span>
-                <span className="text-xs text-slate-500 font-normal">
-                  {filtered.length} products found
-                </span>
-              </button>
-
-              <div className={`rounded-[1.75rem] border border-medical bg-white p-6 shadow-soft ${isFiltersOpen ? "block" : "hidden lg:block"}`}>
+            {/* Desktop Filter Sidebar */}
+            <aside className="hidden lg:block lg:sticky lg:top-28 lg:self-start">
+              <div className="rounded-[1.75rem] border border-medical bg-white p-6 shadow-soft">
                 <div className="mb-5 flex items-center justify-between border-b border-slate-100 pb-3">
                   <div className="flex items-center gap-2">
                     <SlidersHorizontal className="h-5 w-5 text-slateblue" />
@@ -276,6 +274,23 @@ export function ProductCatalog({
                 </FilterGroup>
               </div>
             </aside>
+
+            {/* Mobile Filter Toggle Button */}
+            <div className="lg:hidden">
+              <button
+                type="button"
+                onClick={() => setIsFiltersOpen(true)}
+                className="flex w-full items-center justify-between rounded-2xl border border-medical bg-white px-5 py-4 text-sm font-semibold text-slateblue shadow-soft mb-4"
+              >
+                <span className="flex items-center gap-2">
+                  <SlidersHorizontal className="h-4 w-4" />
+                  Show Filters
+                </span>
+                <span className="text-xs text-slate-500 font-normal">
+                  {filtered.length} products found
+                </span>
+              </button>
+            </div>
 
             {/* Product Grid / Empty State */}
             <div>
@@ -342,7 +357,113 @@ export function ProductCatalog({
         </div>
       </section>
 
-      <QuickViewModal product={quickView} onClose={() => setQuickView(null)} />
+      {/* Mobile Filters Drawer Overlay */}
+      <AnimatePresence>
+        {isFiltersOpen && (
+          <div className="fixed inset-0 z-[80] lg:hidden flex justify-end">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsFiltersOpen(false)}
+              className="fixed inset-0 bg-ink/50 backdrop-blur-sm"
+            />
+            
+            {/* Drawer Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 250 }}
+              className="relative z-10 flex h-full w-full max-w-[20rem] flex-col bg-white p-6 shadow-premium"
+            >
+              {/* Header with Title and Close Button */}
+              <div className="mb-5 flex items-center justify-between border-b border-slate-100 pb-4">
+                <div className="flex items-center gap-2">
+                  <SlidersHorizontal className="h-5 w-5 text-slateblue" />
+                  <h2 className="text-lg font-bold text-ink">Filters</h2>
+                </div>
+                <div className="flex items-center gap-3">
+                  {(search !== "" || selectedType !== "All") && (
+                    <button
+                      onClick={() => {
+                        setSearch("");
+                        setSelectedType("All");
+                      }}
+                      className="text-xs font-semibold text-brand-pink hover:text-brand-pink/80 transition"
+                    >
+                      Clear All
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setIsFiltersOpen(false)}
+                    className="rounded-full p-1.5 hover:bg-slate-100 transition"
+                    aria-label="Close filters"
+                  >
+                    <X className="h-5 w-5 text-slate-500" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Scrollable Filters Content */}
+              <div className="flex-1 overflow-y-auto pr-1 no-scrollbar">
+                {/* Search Input */}
+                <div className="mb-6">
+                  <h3 className="mb-2.5 text-xs font-bold text-slateblue uppercase tracking-wider">Search</h3>
+                  <label className="relative block">
+                    <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                    <input
+                      value={search}
+                      onChange={(event) => setSearch(event.target.value)}
+                      placeholder="Search products..."
+                      className="h-12 w-full rounded-2xl border border-slate-200 bg-white pl-11 pr-4 text-sm outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+                    />
+                  </label>
+                </div>
+
+                {/* Product Type Filter */}
+                <FilterGroup title="Product Type" isMobile>
+                  {["All", ...visibleProductTypes].map((type) => (
+                    <FilterButton
+                      key={type}
+                      active={selectedType === type}
+                      onClick={() => setSelectedType(type)}
+                    >
+                      {type}
+                    </FilterButton>
+                  ))}
+                </FilterGroup>
+
+                {/* Sort By Filter */}
+                <FilterGroup title="Sort By" isMobile>
+                  <select
+                    value={sort}
+                    onChange={(event) =>
+                      setSort(event.target.value as SortOption)
+                    }
+                    className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-ink outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue"
+                  >
+                    {sortOptions.map((option) => (
+                      <option key={option}>{option}</option>
+                    ))}
+                  </select>
+                </FilterGroup>
+              </div>
+
+              {/* Bottom Actions inside drawer */}
+              <div className="border-t border-slate-100 pt-4 mt-auto">
+                <button
+                  onClick={() => setIsFiltersOpen(false)}
+                  className="w-full h-12 bg-brand-blue text-white rounded-2xl font-bold hover:bg-brand-blue/90 transition shadow-soft flex items-center justify-center gap-2"
+                >
+                  Apply Filters ({filtered.length})
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
@@ -351,16 +472,22 @@ function FilterGroup({
   title,
   children,
   className = "mt-6 border-t border-slate-100 pt-5",
+  isMobile = false,
 }: {
   title: string;
   children: React.ReactNode;
   className?: string;
+  isMobile?: boolean;
 }) {
   return (
     <div className={className}>
       <h3 className="mb-3 text-xs font-bold text-slateblue uppercase tracking-wider">{title}</h3>
       {/* Horizontal scroll track on mobile, wrapping on desktop */}
-      <div className="flex overflow-x-auto no-scrollbar gap-2 pb-2 -mx-6 px-6 lg:mx-0 lg:px-0 lg:flex-wrap lg:overflow-visible">
+      <div className={`flex gap-2 pb-2 ${
+        isMobile 
+          ? "flex-wrap overflow-visible" 
+          : "overflow-x-auto no-scrollbar -mx-6 px-6 lg:mx-0 lg:px-0 lg:flex-wrap lg:overflow-visible"
+      }`}>
         {children}
       </div>
     </div>
