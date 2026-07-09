@@ -283,18 +283,15 @@ export default function ContactPage() {
       }
 
       try {
-        const response = await fetch("https://formsubmit.co/ajax/contact@stanmaxlabs.com", {
+        const response = await fetch("https://api.web3forms.com/submit", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
           },
           body: JSON.stringify({
-            _captcha: "false",
-            _template: "table",
-            _next: "https://stanmaxlabs.com/thank-you",
-            _subject: "New Contact Enquiry",
-            _honey: "",
+            access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "YOUR_ACCESS_KEY_HERE",
+            subject: "New Contact Enquiry",
             "Submission Date": new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
             "Inquiry Source": "Contact Us Page",
             "Customer Name": `${formData.firstName} ${formData.lastName}`.trim(),

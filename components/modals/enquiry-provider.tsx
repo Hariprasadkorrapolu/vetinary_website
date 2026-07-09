@@ -86,18 +86,15 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
       }
 
       try {
-        const response = await fetch("https://formsubmit.co/ajax/contact@stanmaxlabs.com", {
+        const response = await fetch("https://api.web3forms.com/submit", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
           },
           body: JSON.stringify({
-            _captcha: "false",
-            _template: "table",
-            _next: "https://stanmaxlabs.com/thank-you",
-            _subject: inquiryType === "Product Inquiry" ? "New Product Inquiry" : "New Contact Sales Inquiry",
-            _honey: "",
+            access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "YOUR_ACCESS_KEY_HERE",
+            subject: inquiryType === "Product Inquiry" ? "New Product Inquiry" : "New Contact Sales Inquiry",
             "Submission Date": new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
             "Inquiry Source": inquiryType === "Product Inquiry" ? "Product Details Page" : "Navigation Bar (Contact Sales)",
             "Customer Name": name,
