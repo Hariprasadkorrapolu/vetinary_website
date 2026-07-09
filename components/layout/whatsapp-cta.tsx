@@ -105,7 +105,8 @@ export function WhatsAppCTA() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes wa-float {
           0%, 100% { transform: translate3d(0, 0px, 0); }
           50% { transform: translate3d(0, -6px, 0); }

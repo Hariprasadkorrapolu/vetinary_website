@@ -35,13 +35,13 @@ function CategoryIcon({ category, className = "h-7 w-7" }: { category: string; c
   if (category === "All") {
     return (
       <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path opacity="0.5" d="M10 2C9.0335 2 8.25 2.7835 8.25 3.75C8.25 4.7165 9.0335 5.5 10 5.5H14C14.9665 5.5 15.75 4.7165 15.75 3.75C15.75 2.7835 14.9665 2 14 2H10Z" fill="currentColor"/>
-        <path opacity="0.5" d="M3.86327 16.2052C3.00532 12.7734 2.57635 11.0575 3.47718 9.90376C4.37801 8.75 6.14672 8.75 9.68413 8.75H14.3148C17.8522 8.75 19.6209 8.75 20.5218 9.90376C21.4226 11.0575 20.9936 12.7734 20.1357 16.2052C19.59 18.3879 19.3172 19.4792 18.5034 20.1146C17.6896 20.75 16.5647 20.75 14.3148 20.75H9.68413C7.43427 20.75 6.30935 20.75 5.49556 20.1146C4.68178 19.4792 4.40894 18.3879 3.86327 16.2052Z" fill="currentColor"/>
-        <path d="M15.5805 4.5023C15.6892 4.2744 15.75 4.01931 15.75 3.75C15.75 3.48195 15.6897 3.22797 15.582 3.00089C16.2655 3.00585 16.7983 3.03723 17.2738 3.22309C17.842 3.44516 18.3362 3.82266 18.6999 4.31242C19.0669 4.8065 19.2391 5.43979 19.4762 6.31144L19.5226 6.48181L20.0353 9.44479C19.6266 9.16286 19.0996 8.99533 18.418 8.89578L18.0567 6.80776C17.7729 5.76805 17.6699 5.44132 17.4957 5.20674C17.2999 4.94302 17.0337 4.73975 16.7278 4.62018C16.508 4.53427 16.2424 4.50899 15.5805 4.5023Z" fill="currentColor"/>
-        <path d="M8.41799 3.00089C8.31027 3.22797 8.25 3.48195 8.25 3.75C8.25 4.01931 8.31083 4.27441 8.41951 4.50231C7.75766 4.509 7.49208 4.53427 7.27227 4.62018C6.96633 4.73975 6.70021 4.94302 6.50436 5.20674C6.33015 5.44132 6.22715 5.76805 5.94337 6.80776L5.58207 8.89569C4.90053 8.99518 4.37353 9.1626 3.96484 9.44433L4.47748 6.48181L4.52387 6.31145C4.76095 5.4398 4.9332 4.8065 5.30013 4.31242C5.66384 3.82266 6.15806 3.44516 6.72624 3.22309C7.20177 3.03724 7.73449 3.00586 8.41799 3.00089Z" fill="currentColor"/>
-        <path d="M8.75 12.75C8.75 12.3358 8.41421 12 8 12C7.58579 12 7.25 12.3358 7.25 12.75V16.75C7.25 17.1642 7.58579 17.5 8 17.5C8.41421 17.5 8.75 17.1642 8.75 16.75V12.75Z" fill="currentColor"/>
-        <path d="M16 12C16.4142 12 16.75 12.3358 16.75 12.75V16.75C16.75 17.1642 16.4142 17.5 16 17.5C15.5858 17.5 15.25 17.1642 15.25 16.75V12.75C15.25 12.3358 15.5858 12 16 12Z" fill="currentColor"/>
-        <path d="M12.75 12.75C12.75 12.3358 12.4142 12 12 12C11.5858 12 11.25 12.3358 11.25 12.75V16.75C11.25 17.1642 11.5858 17.5 12 17.5C12.4142 17.5 12.75 17.1642 12.75 16.75V12.75Z" fill="currentColor"/>
+        <path opacity="0.5" d="M10 2C9.0335 2 8.25 2.7835 8.25 3.75C8.25 4.7165 9.0335 5.5 10 5.5H14C14.9665 5.5 15.75 4.7165 15.75 3.75C15.75 2.7835 14.9665 2 14 2H10Z" fill="currentColor" />
+        <path opacity="0.5" d="M3.86327 16.2052C3.00532 12.7734 2.57635 11.0575 3.47718 9.90376C4.37801 8.75 6.14672 8.75 9.68413 8.75H14.3148C17.8522 8.75 19.6209 8.75 20.5218 9.90376C21.4226 11.0575 20.9936 12.7734 20.1357 16.2052C19.59 18.3879 19.3172 19.4792 18.5034 20.1146C17.6896 20.75 16.5647 20.75 14.3148 20.75H9.68413C7.43427 20.75 6.30935 20.75 5.49556 20.1146C4.68178 19.4792 4.40894 18.3879 3.86327 16.2052Z" fill="currentColor" />
+        <path d="M15.5805 4.5023C15.6892 4.2744 15.75 4.01931 15.75 3.75C15.75 3.48195 15.6897 3.22797 15.582 3.00089C16.2655 3.00585 16.7983 3.03723 17.2738 3.22309C17.842 3.44516 18.3362 3.82266 18.6999 4.31242C19.0669 4.8065 19.2391 5.43979 19.4762 6.31144L19.5226 6.48181L20.0353 9.44479C19.6266 9.16286 19.0996 8.99533 18.418 8.89578L18.0567 6.80776C17.7729 5.76805 17.6699 5.44132 17.4957 5.20674C17.2999 4.94302 17.0337 4.73975 16.7278 4.62018C16.508 4.53427 16.2424 4.50899 15.5805 4.5023Z" fill="currentColor" />
+        <path d="M8.41799 3.00089C8.31027 3.22797 8.25 3.48195 8.25 3.75C8.25 4.01931 8.31083 4.27441 8.41951 4.50231C7.75766 4.509 7.49208 4.53427 7.27227 4.62018C6.96633 4.73975 6.70021 4.94302 6.50436 5.20674C6.33015 5.44132 6.22715 5.76805 5.94337 6.80776L5.58207 8.89569C4.90053 8.99518 4.37353 9.1626 3.96484 9.44433L4.47748 6.48181L4.52387 6.31145C4.76095 5.4398 4.9332 4.8065 5.30013 4.31242C5.66384 3.82266 6.15806 3.44516 6.72624 3.22309C7.20177 3.03724 7.73449 3.00586 8.41799 3.00089Z" fill="currentColor" />
+        <path d="M8.75 12.75C8.75 12.3358 8.41421 12 8 12C7.58579 12 7.25 12.3358 7.25 12.75V16.75C7.25 17.1642 7.58579 17.5 8 17.5C8.41421 17.5 8.75 17.1642 8.75 16.75V12.75Z" fill="currentColor" />
+        <path d="M16 12C16.4142 12 16.75 12.3358 16.75 12.75V16.75C16.75 17.1642 16.4142 17.5 16 17.5C15.5858 17.5 15.25 17.1642 15.25 16.75V12.75C15.25 12.3358 15.5858 12 16 12Z" fill="currentColor" />
+        <path d="M12.75 12.75C12.75 12.3358 12.4142 12 12 12C11.5858 12 11.25 12.3358 11.25 12.75V16.75C11.25 17.1642 11.5858 17.5 12 17.5C12.4142 17.5 12.75 17.1642 12.75 16.75V12.75Z" fill="currentColor" />
       </svg>
     );
   }
@@ -160,7 +160,7 @@ export function ProductCatalog({
     <>
       <section className="bg-mist py-8 sm:py-14">
         <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-          
+
           {/* Premium Category Navigation */}
           <div className="mb-10">
             <p className="mb-4 text-center text-xs font-bold uppercase tracking-[0.2em] text-slateblue/80">
@@ -177,28 +177,25 @@ export function ProductCatalog({
                     key={cat}
                     type="button"
                     onClick={() => handleCategoryChange(cat)}
-                    className={`group relative flex flex-col items-center rounded-3xl border p-6 text-center transition-all duration-300 ${
-                      isActive
+                    className={`group relative flex flex-col items-center rounded-3xl border p-6 text-center transition-all duration-300 ${isActive
                         ? "border-brand-blue bg-brand-blue text-white shadow-premium scale-[1.02]"
                         : "border-medical bg-white text-slate-800 shadow-soft hover:-translate-y-1 hover:border-brand-pink/30 hover:shadow-md"
-                    }`}
+                      }`}
                   >
                     <div
-                      className={`mb-3.5 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300 ${
-                        isActive
+                      className={`mb-3.5 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300 ${isActive
                           ? "bg-brand-yellow text-brand-blue"
                           : "bg-medical text-brand-blue group-hover:bg-brand-blue group-hover:text-white"
-                      }`}
+                        }`}
                     >
                       <CategoryIcon category={cat} />
                     </div>
                     <span className="text-base font-bold tracking-tight">{displayLabel}</span>
                     <span
-                      className={`mt-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                        isActive
+                      className={`mt-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold ${isActive
                           ? "bg-white/20 text-white"
                           : "bg-mist text-slate-500"
-                      }`}
+                        }`}
                     >
                       {count} {count === 1 ? "Product" : "Products"}
                     </span>
@@ -209,7 +206,7 @@ export function ProductCatalog({
           </div>
 
           <div className="grid gap-6 lg:grid-cols-[20rem_1fr]">
-            
+
             {/* Desktop Filter Sidebar */}
             <aside className="hidden lg:block lg:sticky lg:top-28 lg:self-start">
               <div className="rounded-[1.75rem] border border-medical bg-white p-6 shadow-soft">
@@ -369,7 +366,7 @@ export function ProductCatalog({
               onClick={() => setIsFiltersOpen(false)}
               className="fixed inset-0 bg-ink/50 backdrop-blur-sm"
             />
-            
+
             {/* Drawer Panel */}
             <motion.div
               initial={{ x: "100%" }}
@@ -464,6 +461,11 @@ export function ProductCatalog({
           </div>
         )}
       </AnimatePresence>
+
+      <QuickViewModal
+        product={quickView}
+        onClose={() => setQuickView(null)}
+      />
     </>
   );
 }
@@ -483,11 +485,10 @@ function FilterGroup({
     <div className={className}>
       <h3 className="mb-3 text-xs font-bold text-slateblue uppercase tracking-wider">{title}</h3>
       {/* Horizontal scroll track on mobile, wrapping on desktop */}
-      <div className={`flex gap-2 pb-2 ${
-        isMobile 
-          ? "flex-wrap overflow-visible" 
+      <div className={`flex gap-2 pb-2 ${isMobile
+          ? "flex-wrap overflow-visible"
           : "overflow-x-auto no-scrollbar -mx-6 px-6 lg:mx-0 lg:px-0 lg:flex-wrap lg:overflow-visible"
-      }`}>
+        }`}>
         {children}
       </div>
     </div>
@@ -507,11 +508,10 @@ function FilterButton({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-4 py-2.5 text-xs font-bold transition-all duration-300 shrink-0 select-none ${
-        active
+      className={`rounded-full px-4 py-2.5 text-xs font-bold transition-all duration-300 shrink-0 select-none ${active
           ? "bg-brand-blue text-white shadow-soft hover:shadow-md scale-[1.02]"
           : "bg-slate-50 text-slate-600 hover:bg-medical hover:text-brand-blue"
-      }`}
+        }`}
     >
       {children}
     </button>

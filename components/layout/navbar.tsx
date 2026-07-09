@@ -29,11 +29,10 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-white md:bg-white/95 shadow-soft border-b border-slate-100 backdrop-blur-md md:backdrop-blur-xl"
           : "bg-white/95 md:bg-white/90 backdrop-blur-md"
-      }`}
+        }`}
     >
       <Container>
         <nav className="flex h-20 lg:h-28 items-center justify-between">
@@ -54,19 +53,17 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`group relative rounded-full px-3 py-2 text-base transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slateblue/45 focus-visible:ring-offset-4 xl:text-[17px] ${
-                    active
+                  className={`group relative rounded-full px-3 py-2 text-base transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slateblue/45 focus-visible:ring-offset-4 xl:text-[17px] ${active
                       ? "bg-slateblue/[0.08] text-slateblue"
                       : "text-slate-600 hover:scale-[1.04] hover:text-slateblue"
-                  }`}
+                    }`}
                 >
                   {item.label}
                   <span
-                    className={`absolute inset-x-3 -bottom-1 h-0.5 origin-left rounded-full bg-slateblue transition-transform duration-300 ease-out ${
-                      active
+                    className={`absolute inset-x-3 -bottom-1 h-0.5 origin-left rounded-full bg-slateblue transition-transform duration-300 ease-out ${active
                         ? "scale-x-100"
                         : "scale-x-0 group-hover:scale-x-100"
-                    }`}
+                      }`}
                   />
                 </Link>
               );
@@ -117,11 +114,10 @@ export function Navbar() {
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   onClick={() => setOpen(false)}
-                  className={`rounded-2xl px-4 py-2.5 text-2xl tracking-tight transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slateblue/45 ${
-                    isActive(item.href)
+                  className={`rounded-2xl px-4 py-2.5 text-2xl tracking-tight transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slateblue/45 ${isActive(item.href)
                       ? "bg-medical text-slateblue"
                       : "text-ink hover:bg-mist hover:text-slateblue"
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </Link>

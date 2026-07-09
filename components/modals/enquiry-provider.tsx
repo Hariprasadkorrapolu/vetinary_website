@@ -1,11 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { MessageCircle, X } from "lucide-react";
 import { createContext, useContext, useMemo, useState } from "react";
 import { WHATSAPP_URL } from "@/lib/constants";
-import { db } from "@/lib/firebase";
 
 type EnquiryContextValue = {
   openEnquiry: (
